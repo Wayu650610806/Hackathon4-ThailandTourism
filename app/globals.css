@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+:root {
+  --bg-page:    #F5F3FF;
+  --bg-card:    #FFFFFF;
+  --bg-subtle:  #F0EBFF;
+  --purple-100: #EDE9FE;
+  --purple-200: #DDD6FE;
+  --purple-400: #A78BFA;
+  --purple-600: #7C3AED;
+  --purple-800: #5B21B6;
+  --purple-900: #1E1B4B;
+  --text-main:  #1E1B4B;
+  --text-sub:   #6D6A9A;
+  --text-muted: #A89ED0;
+  --border:     #E8E4F7;
+  --shadow-sm:  0 1px 4px rgba(124,58,237,0.08);
+  --shadow-md:  0 4px 16px rgba(124,58,237,0.14);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  background: var(--bg-page);
+  color: var(--text-main);
+  font-family: 'Noto Sans Thai', 'Inter', -apple-system, sans-serif;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--purple-100); }
+::-webkit-scrollbar-thumb { background: var(--purple-400); border-radius: 4px; }
+
+/* ── Gradient brand text ── */
+.gradient-text {
+  background: linear-gradient(135deg, #7C3AED, #4F46E5, #BE185D);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 5s ease infinite;
+}
+@keyframes gradientShift {
+  0%,100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* ── Card glass ── */
+.card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Weather animations ── */
+@keyframes sunRay {
+  0%,100% { opacity: 0.6; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.12); }
+}
+@keyframes rainDrop {
+  0%   { transform: translateY(-10px); opacity: 0; }
+  50%  { opacity: 1; }
+  100% { transform: translateY(50px);  opacity: 0; }
+}
+@keyframes cloudFloat {
+  0%,100% { transform: translateX(0); }
+  50%      { transform: translateX(6px); }
+}
+@keyframes lightning {
+  0%,88%,100% { opacity: 0; }
+  90%,95%     { opacity: 1; }
+}
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-7px); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes crowd-pulse {
+  0%,100% { opacity: 0.4; transform: scale(1); }
+  50%     { opacity: 0.8; transform: scale(1.08); }
+}
+
+.animate-float     { animation: float 3s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 8s linear infinite; }
+.animate-cloud     { animation: cloudFloat 4s ease-in-out infinite; }
+
+.shimmer {
+  background: linear-gradient(90deg, #EDE9FE 25%, #DDD6FE 50%, #EDE9FE 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}

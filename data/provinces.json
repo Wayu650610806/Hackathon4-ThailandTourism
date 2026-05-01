@@ -1,0 +1,702 @@
+[
+  {
+    "province": "เชียงใหม่",
+    "province_en": "Chiang Mai",
+    "region": "ภาคเหนือ",
+    "region_en": "Northern",
+    "total_attractions": 5,
+    "description": "เมืองเหนือที่เปี่ยมด้วยวัฒนธรรมล้านนา ธรรมชาติสวยงาม และอาหารพื้นเมืองที่มีเอกลักษณ์",
+    "attractions": [
+      {
+        "id": "CM-001",
+        "name": "ประเพณียี่เป็ง",
+        "category": "Culture",
+        "district": "เมืองเชียงใหม่",
+        "tambon": "พระสิงห์",
+        "lat": 18.785,
+        "long": 98.985,
+        "image_path": "/img/chiangmai/cm-001.jpg",
+        "event_date": "15-17 พฤศจิกายน",
+        "description": "ประเพณีลอยกระทงของชาวล้านนา มีการปล่อยโคมลอยขึ้นสู่ท้องฟ้า"
+      },
+      {
+        "id": "CM-002",
+        "name": "ข้าวซอยเสมอใจ",
+        "category": "Food",
+        "district": "เมืองเชียงใหม่",
+        "tambon": "ฟ้าฮ่าม",
+        "lat": 18.816,
+        "long": 99.008,
+        "image_path": "/img/chiangmai/cm-002.jpg",
+        "event_date": "เปิดทุกวัน (08:00 - 17:00 น.)",
+        "description": "ร้านข้าวซอยชื่อดังที่เสิร์ฟเส้นโดยใช้สูตรดั้งเดิมของชาวเหนือ"
+      },
+      {
+        "id": "CM-003",
+        "name": "วัดพระธาตุดอยสุเทพ",
+        "category": "Temple",
+        "district": "เมืองเชียงใหม่",
+        "tambon": "สุเทพ",
+        "lat": 18.768,
+        "long": 98.921,
+        "image_path": "/img/chiangmai/cm-003.jpg",
+        "event_date": "เปิดทุกวัน (06:00 - 20:00 น.)",
+        "description": "วัดศักดิ์สิทธิ์บนยอดดอยสุเทพ มองเห็นวิวเมืองเชียงใหม่ได้อย่างสวยงาม"
+      },
+      {
+        "id": "CM-004",
+        "name": "เส้นทางศึกษาธรรมชาติกิ่วแม่ปาน",
+        "category": "Adventure",
+        "district": "จอมทอง",
+        "tambon": "บ้านหลวง",
+        "lat": 18.502,
+        "long": 98.600,
+        "image_path": "/img/chiangmai/cm-004.jpg",
+        "event_date": "1 พฤศจิกายน - 31 พฤษภาคม",
+        "description": "เส้นทางเดินป่าชมทะเลหมอกและดอกไม้ป่าที่สวยงามบนดอยอินทนนท์"
+      },
+      {
+        "id": "CM-005",
+        "name": "ถนนคนเดินท่าแพ",
+        "category": "Must Go",
+        "district": "เมืองเชียงใหม่",
+        "tambon": "ศรีภูมิ",
+        "lat": 18.796,
+        "long": 98.985,
+        "image_path": "/img/chiangmai/cm-005.jpg",
+        "event_date": "ทุกวันอาทิตย์ (17:00 - 22:30 น.)",
+        "description": "ตลาดนัดกลางคืนที่มีสินค้าหัตถกรรม อาหาร และการแสดงทางวัฒนธรรม"
+      }
+    ]
+  },
+  {
+    "province": "กรุงเทพมหานคร",
+    "province_en": "Bangkok",
+    "region": "ภาคกลาง",
+    "region_en": "Central",
+    "total_attractions": 5,
+    "description": "มหานครที่เต็มไปด้วยวัดวาอาราม วัฒนธรรม และความทันสมัยระดับโลก",
+    "attractions": [
+      {
+        "id": "BK-001",
+        "name": "วัดพระแก้ว",
+        "category": "Temple",
+        "district": "พระนคร",
+        "tambon": "พระบรมมหาราชวัง",
+        "lat": 13.751,
+        "long": 100.492,
+        "image_path": "/img/bangkok/bk-001.jpg",
+        "event_date": "เปิดทุกวัน (08:30 - 15:30 น.)",
+        "description": "วัดที่ศักดิ์สิทธิ์ที่สุดในประเทศไทย ประดิษฐานพระแก้วมรกต"
+      },
+      {
+        "id": "BK-002",
+        "name": "ตลาดน้ำดำเนินสะดวก",
+        "category": "Must Go",
+        "district": "ดำเนินสะดวก",
+        "tambon": "ดำเนินสะดวก",
+        "lat": 13.521,
+        "long": 100.041,
+        "image_path": "/img/bangkok/bk-002.jpg",
+        "event_date": "เปิดทุกวัน (07:00 - 12:00 น.)",
+        "description": "ตลาดน้ำดั้งเดิมที่มีชีวิตชีวา ขายอาหารและสินค้าจากเรือ"
+      },
+      {
+        "id": "BK-003",
+        "name": "ถนนข้าวสาร",
+        "category": "Must Go",
+        "district": "พระนคร",
+        "tambon": "ตลาดยอด",
+        "lat": 13.759,
+        "long": 100.497,
+        "image_path": "/img/bangkok/bk-003.jpg",
+        "event_date": "เปิดทุกวัน (18:00 - 02:00 น.)",
+        "description": "ถนนนักท่องเที่ยวชื่อดัง เต็มไปด้วยร้านอาหาร บาร์ และวัฒนธรรมไทย"
+      },
+      {
+        "id": "BK-004",
+        "name": "ผัดไทยไชยา",
+        "category": "Food",
+        "district": "บางรัก",
+        "tambon": "สีลม",
+        "lat": 13.727,
+        "long": 100.528,
+        "image_path": "/img/bangkok/bk-004.jpg",
+        "event_date": "เปิดทุกวัน (10:00 - 22:00 น.)",
+        "description": "ผัดไทยต้นตำรับรสชาติกลมกล่อม วัตถุดิบสด ราคาเป็นมิตร"
+      },
+      {
+        "id": "BK-005",
+        "name": "สวนลุมพินี",
+        "category": "Adventure",
+        "district": "ปทุมวัน",
+        "tambon": "ลุมพินี",
+        "lat": 13.731,
+        "long": 100.540,
+        "image_path": "/img/bangkok/bk-005.jpg",
+        "event_date": "เปิดทุกวัน (04:30 - 21:00 น.)",
+        "description": "ปอดสีเขียวกลางมหานคร เหมาะสำหรับออกกำลังกายและพักผ่อน"
+      }
+    ]
+  },
+  {
+    "province": "ภูเก็ต",
+    "province_en": "Phuket",
+    "region": "ภาคใต้",
+    "region_en": "Southern",
+    "total_attractions": 5,
+    "description": "เกาะสวรรค์ที่มีชายหาดสวยงาม ทะเลใสน้ำเงิน และวัฒนธรรมที่หลากหลาย",
+    "attractions": [
+      {
+        "id": "PK-001",
+        "name": "หาดป่าตอง",
+        "category": "Must Go",
+        "district": "กะทู้",
+        "tambon": "ป่าตอง",
+        "lat": 7.896,
+        "long": 98.297,
+        "image_path": "/img/phuket/pk-001.jpg",
+        "event_date": "เปิดทุกวัน",
+        "description": "ชายหาดที่มีชื่อเสียงที่สุดของภูเก็ต เต็มไปด้วยกิจกรรมทางน้ำ"
+      },
+      {
+        "id": "PK-002",
+        "name": "วัดฉลอง",
+        "category": "Temple",
+        "district": "เมืองภูเก็ต",
+        "tambon": "ฉลอง",
+        "lat": 7.852,
+        "long": 98.334,
+        "image_path": "/img/phuket/pk-002.jpg",
+        "event_date": "เปิดทุกวัน (06:00 - 18:00 น.)",
+        "description": "วัดเก่าแก่ที่ชาวภูเก็ตเคารพนับถือ มีสถาปัตยกรรมงดงาม"
+      },
+      {
+        "id": "PK-003",
+        "name": "ดำน้ำเกาะราชา",
+        "category": "Adventure",
+        "district": "เมืองภูเก็ต",
+        "tambon": "ราไวย์",
+        "lat": 7.742,
+        "long": 98.366,
+        "image_path": "/img/phuket/pk-003.jpg",
+        "event_date": "เปิดทุกวัน (พฤศจิกายน - เมษายน)",
+        "description": "ดำน้ำชมปะการังและสัตว์ทะเลนานาชนิดที่เกาะราชา"
+      },
+      {
+        "id": "PK-004",
+        "name": "อาหารทะเลย่านบางโรง",
+        "category": "Food",
+        "district": "ถลาง",
+        "tambon": "ป่าคลอก",
+        "lat": 8.048,
+        "long": 98.392,
+        "image_path": "/img/phuket/pk-004.jpg",
+        "event_date": "เปิดทุกวัน (11:00 - 22:00 น.)",
+        "description": "อาหารทะเลสดใหม่จากทะเลอันดามัน รสชาติเป็นเอกลักษณ์"
+      },
+      {
+        "id": "PK-005",
+        "name": "เทศกาลกินเจภูเก็ต",
+        "category": "Culture",
+        "district": "เมืองภูเก็ต",
+        "tambon": "ตลาดใหญ่",
+        "lat": 7.888,
+        "long": 98.388,
+        "image_path": "/img/phuket/pk-005.jpg",
+        "event_date": "ตุลาคม (ขึ้นอยู่กับปฏิทินจีน)",
+        "description": "เทศกาลถือศีลกินเจที่ยิ่งใหญ่ มีขบวนแห่และพิธีกรรมอันตื่นตาตื่นใจ"
+      }
+    ]
+  },
+  {
+    "province": "เชียงราย",
+    "province_en": "Chiang Rai",
+    "region": "ภาคเหนือ",
+    "region_en": "Northern",
+    "total_attractions": 5,
+    "description": "เมืองชายแดนที่มีธรรมชาติสวยงาม วัดสีขาวและสีดำอันโดดเด่น",
+    "attractions": [
+      {
+        "id": "CR-001",
+        "name": "วัดร่องขุ่น (วัดขาว)",
+        "category": "Temple",
+        "district": "เมืองเชียงราย",
+        "tambon": "ป่าอ้อดอนชัย",
+        "lat": 19.824,
+        "long": 99.763,
+        "image_path": "/img/chiangrai/cr-001.jpg",
+        "event_date": "เปิดทุกวัน (08:00 - 18:00 น.)",
+        "description": "วัดสีขาวอันงดงาม ผลงานชิ้นเอกของอาจารย์เฉลิมชัย โฆษิตพิพัฒน์"
+      },
+      {
+        "id": "CR-002",
+        "name": "บ้านดำ",
+        "category": "Culture",
+        "district": "เมืองเชียงราย",
+        "tambon": "นางแล",
+        "lat": 19.896,
+        "long": 99.831,
+        "image_path": "/img/chiangrai/cr-002.jpg",
+        "event_date": "เปิดทุกวัน (09:00 - 17:00 น.)",
+        "description": "พิพิธภัณฑ์ส่วนตัวของอาจารย์ถวัลย์ ดัชนี ผลงานศิลปะสีดำสุดเข้มข้น"
+      },
+      {
+        "id": "CR-003",
+        "name": "ดอยแม่สลอง",
+        "category": "Adventure",
+        "district": "แม่ฟ้าหลวง",
+        "tambon": "แม่สลองนอก",
+        "lat": 20.177,
+        "long": 99.634,
+        "image_path": "/img/chiangrai/cr-003.jpg",
+        "event_date": "เปิดทุกวัน",
+        "description": "ดอยสูงที่มีทะเลหมอก สวนชา และวิถีชีวิตชาวจีนยูนนาน"
+      },
+      {
+        "id": "CR-004",
+        "name": "ชาดอยแม่สลอง",
+        "category": "Food",
+        "district": "แม่ฟ้าหลวง",
+        "tambon": "แม่สลองนอก",
+        "lat": 20.179,
+        "long": 99.637,
+        "image_path": "/img/chiangrai/cr-004.jpg",
+        "event_date": "เปิดทุกวัน (07:00 - 18:00 น.)",
+        "description": "ชาสดจากไร่ชาบนดอยสูง หอมอ่อนและรสชาติเป็นเลิศ"
+      },
+      {
+        "id": "CR-005",
+        "name": "สามเหลี่ยมทองคำ",
+        "category": "Must Go",
+        "district": "เชียงแสน",
+        "tambon": "เวียง",
+        "lat": 20.357,
+        "long": 100.085,
+        "image_path": "/img/chiangrai/cr-005.jpg",
+        "event_date": "เปิดทุกวัน",
+        "description": "จุดบรรจบของแม่น้ำโขงสามประเทศ ไทย ลาว และเมียนมา"
+      }
+    ]
+  },
+  {
+    "province": "กระบี่",
+    "province_en": "Krabi",
+    "region": "ภาคใต้",
+    "region_en": "Southern",
+    "total_attractions": 5,
+    "description": "จังหวัดชายทะเลที่มีหน้าผาหินปูน หาดทรายขาว และน้ำทะเลใสสวยงาม",
+    "attractions": [
+      {
+        "id": "KB-001",
+        "name": "หาดรายาย",
+        "category": "Must Go",
+        "district": "เกาะลันตา",
+        "tambon": "ศาลาด่าน",
+        "lat": 7.544,
+        "long": 99.031,
+        "image_path": "/img/krabi/kb-001.jpg",
+        "event_date": "เปิดทุกวัน",
+        "description": "หาดทรายขาวละเอียดน้ำใสสีฟ้าคราม บรรยากาศสงบงดงาม"
+      },
+      {
+        "id": "KB-002",
+        "name": "วัดถ้ำเสือ",
+        "category": "Temple",
+        "district": "เมืองกระบี่",
+        "tambon": "ไสไทย",
+        "lat": 8.073,
+        "long": 98.912,
+        "image_path": "/img/krabi/kb-002.jpg",
+        "event_date": "เปิดทุกวัน (08:00 - 17:00 น.)",
+        "description": "วัดบนยอดเขาหินปูน ปีนบันได 1,237 ขั้นชมวิวทะเลและเมืองกระบี่"
+      },
+      {
+        "id": "KB-003",
+        "name": "ล่องแก่ง",
+        "category": "Adventure",
+        "district": "อ่าวลึก",
+        "tambon": "คีรีวง",
+        "lat": 8.403,
+        "long": 98.740,
+        "image_path": "/img/krabi/kb-003.jpg",
+        "event_date": "เปิดทุกวัน (พฤษภาคม - ตุลาคม)",
+        "description": "ล่องแก่งผจญภัยในป่าฝนเขตร้อนที่ยังคงความบริสุทธิ์"
+      },
+      {
+        "id": "KB-004",
+        "name": "ปลาเผาท่าเรือ",
+        "category": "Food",
+        "district": "เมืองกระบี่",
+        "tambon": "ปากน้ำ",
+        "lat": 8.053,
+        "long": 98.914,
+        "image_path": "/img/krabi/kb-004.jpg",
+        "event_date": "เปิดทุกวัน (16:00 - 22:00 น.)",
+        "description": "อาหารทะเลสดจากอ่าวไทย ปลาเผารสเด็ดพร้อมน้ำจิ้มรสจัด"
+      },
+      {
+        "id": "KB-005",
+        "name": "เทศกาลผลไม้กระบี่",
+        "category": "Culture",
+        "district": "เมืองกระบี่",
+        "tambon": "กระบี่ใหญ่",
+        "lat": 8.076,
+        "long": 98.903,
+        "image_path": "/img/krabi/kb-005.jpg",
+        "event_date": "มิถุนายน - กรกฎาคม",
+        "description": "เทศกาลชิมผลไม้ภาคใต้ หลากหลายพันธุ์จากสวนท้องถิ่น"
+      }
+    ]
+  },
+  {
+    "province": "อยุธยา",
+    "province_en": "Ayutthaya",
+    "region": "ภาคกลาง",
+    "region_en": "Central",
+    "total_attractions": 5,
+    "description": "อดีตราชธานีของไทยที่มีโบราณสถานและวัดวาอารามทางประวัติศาสตร์",
+    "attractions": [
+      {
+        "id": "AY-001",
+        "name": "วัดพระศรีสรรเพชญ์",
+        "category": "Temple",
+        "district": "พระนครศรีอยุธยา",
+        "tambon": "ประตูชัย",
+        "lat": 14.360,
+        "long": 100.558,
+        "image_path": "/img/ayutthaya/ay-001.jpg",
+        "event_date": "เปิดทุกวัน (08:00 - 17:00 น.)",
+        "description": "วัดหลวงในพระราชวังโบราณ ศูนย์กลางพระราชอาณาจักรอยุธยา"
+      },
+      {
+        "id": "AY-002",
+        "name": "ตลาดเจ้าพรม",
+        "category": "Must Go",
+        "district": "พระนครศรีอยุธยา",
+        "tambon": "คลองสวนพลู",
+        "lat": 14.355,
+        "long": 100.574,
+        "image_path": "/img/ayutthaya/ay-002.jpg",
+        "event_date": "เปิดทุกวัน (06:00 - 12:00 น.)",
+        "description": "ตลาดริมน้ำโบราณที่ยังคงบรรยากาศดั้งเดิม"
+      },
+      {
+        "id": "AY-003",
+        "name": "ล่องเรือชมอยุธยา",
+        "category": "Adventure",
+        "district": "พระนครศรีอยุธยา",
+        "tambon": "ประตูชัย",
+        "lat": 14.357,
+        "long": 100.560,
+        "image_path": "/img/ayutthaya/ay-003.jpg",
+        "event_date": "เปิดทุกวัน (09:00 - 17:00 น.)",
+        "description": "ล่องเรือชมโบราณสถานและวัดต่างๆ ริมแม่น้ำเจ้าพระยา"
+      },
+      {
+        "id": "AY-004",
+        "name": "ข้าวแช่อยุธยา",
+        "category": "Food",
+        "district": "พระนครศรีอยุธยา",
+        "tambon": "หัวรอ",
+        "lat": 14.361,
+        "long": 100.577,
+        "image_path": "/img/ayutthaya/ay-004.jpg",
+        "event_date": "เปิดทุกวัน (10:00 - 18:00 น.)",
+        "description": "อาหารโบราณราชสำนักรสละเมียด เสิร์ฟในฤดูร้อน"
+      },
+      {
+        "id": "AY-005",
+        "name": "ประเพณีลอยกระทงอยุธยา",
+        "category": "Culture",
+        "district": "พระนครศรีอยุธยา",
+        "tambon": "ประตูชัย",
+        "lat": 14.355,
+        "long": 100.560,
+        "image_path": "/img/ayutthaya/ay-005.jpg",
+        "event_date": "พฤศจิกายน (วันเพ็ญเดือน 12)",
+        "description": "ประเพณีลอยกระทงท่ามกลางโบราณสถานที่สว่างไสว"
+      }
+    ]
+  },
+  {
+    "province": "เกาะสมุย",
+    "province_en": "Koh Samui",
+    "region": "ภาคใต้",
+    "region_en": "Southern",
+    "total_attractions": 5,
+    "description": "เกาะสวรรค์ในอ่าวไทย มีชายหาดสวยงาม น้ำตก และบรรยากาศผ่อนคลาย",
+    "attractions": [
+      {
+        "id": "SM-001",
+        "name": "หาดเฉวง",
+        "category": "Must Go",
+        "district": "เกาะสมุย",
+        "tambon": "บ่อผุด",
+        "lat": 9.531,
+        "long": 100.061,
+        "image_path": "/img/samui/sm-001.jpg",
+        "event_date": "เปิดทุกวัน",
+        "description": "ชายหาดยาวที่สวยที่สุดบนเกาะสมุย บรรยากาศดีทั้งกลางวันและกลางคืน"
+      },
+      {
+        "id": "SM-002",
+        "name": "น้ำตกนาเมือง",
+        "category": "Adventure",
+        "district": "เกาะสมุย",
+        "tambon": "มะเร็ต",
+        "lat": 9.479,
+        "long": 100.033,
+        "image_path": "/img/samui/sm-002.jpg",
+        "event_date": "เปิดทุกวัน (08:00 - 18:00 น.)",
+        "description": "น้ำตกขนาดใหญ่ในผืนป่ากลางเกาะ อากาศเย็นสบาย"
+      },
+      {
+        "id": "SM-003",
+        "name": "วัดพระใหญ่",
+        "category": "Temple",
+        "district": "เกาะสมุย",
+        "tambon": "บ่อผุด",
+        "lat": 9.565,
+        "long": 100.064,
+        "image_path": "/img/samui/sm-003.jpg",
+        "event_date": "เปิดทุกวัน (08:00 - 17:00 น.)",
+        "description": "วัดที่มีพระพุทธรูปองค์ใหญ่ริมทะเล สัญลักษณ์ของเกาะสมุย"
+      },
+      {
+        "id": "SM-004",
+        "name": "อาหารทะเยริมหาด",
+        "category": "Food",
+        "district": "เกาะสมุย",
+        "tambon": "ลิปะน้อย",
+        "lat": 9.462,
+        "long": 100.011,
+        "image_path": "/img/samui/sm-004.jpg",
+        "event_date": "เปิดทุกวัน (11:00 - 22:00 น.)",
+        "description": "อาหารทะเลสดตรงจากเรือประมง บรรยากาศชิลริมทะเล"
+      },
+      {
+        "id": "SM-005",
+        "name": "เทศกาลดนตรีเกาะสมุย",
+        "category": "Culture",
+        "district": "เกาะสมุย",
+        "tambon": "บ่อผุด",
+        "lat": 9.533,
+        "long": 100.062,
+        "image_path": "/img/samui/sm-005.jpg",
+        "event_date": "ธันวาคม - มกราคม",
+        "description": "เทศกาลดนตรีนานาชาติบนเกาะสมุย ศิลปินชั้นนำมาแสดง"
+      }
+    ]
+  },
+  {
+    "province": "สุโขทัย",
+    "province_en": "Sukhothai",
+    "region": "ภาคเหนือ",
+    "region_en": "Northern",
+    "total_attractions": 5,
+    "description": "เมืองต้นกำเนิดอารยธรรมไทย มีอุทยานประวัติศาสตร์ที่งดงาม",
+    "attractions": [
+      {
+        "id": "ST-001",
+        "name": "อุทยานประวัติศาสตร์สุโขทัย",
+        "category": "Must Go",
+        "district": "เมืองสุโขทัย",
+        "tambon": "เมืองเก่า",
+        "lat": 17.017,
+        "long": 99.700,
+        "image_path": "/img/sukhothai/st-001.jpg",
+        "event_date": "เปิดทุกวัน (06:00 - 21:00 น.)",
+        "description": "มรดกโลกทางวัฒนธรรม ซากปรักหักพังเมืองหลวงสุโขทัย"
+      },
+      {
+        "id": "ST-002",
+        "name": "วัดพระพายหลวง",
+        "category": "Temple",
+        "district": "เมืองสุโขทัย",
+        "tambon": "เมืองเก่า",
+        "lat": 17.024,
+        "long": 99.701,
+        "image_path": "/img/sukhothai/st-002.jpg",
+        "event_date": "เปิดทุกวัน (06:00 - 18:00 น.)",
+        "description": "วัดโบราณที่มีสระน้ำล้อมรอบ สถาปัตยกรรมงดงาม"
+      },
+      {
+        "id": "ST-003",
+        "name": "ปั่นจักรยานชมเมืองเก่า",
+        "category": "Adventure",
+        "district": "เมืองสุโขทัย",
+        "tambon": "เมืองเก่า",
+        "lat": 17.017,
+        "long": 99.700,
+        "image_path": "/img/sukhothai/st-003.jpg",
+        "event_date": "เปิดทุกวัน",
+        "description": "สำรวจโบราณสถานด้วยจักรยานในบรรยากาศสวยงาม"
+      },
+      {
+        "id": "ST-004",
+        "name": "สังขยา",
+        "category": "Food",
+        "district": "เมืองสุโขทัย",
+        "tambon": "ธานี",
+        "lat": 17.007,
+        "long": 99.825,
+        "image_path": "/img/sukhothai/st-004.jpg",
+        "event_date": "เปิดทุกวัน (08:00 - 17:00 น.)",
+        "description": "ขนมโบราณสุโขทัย รสหวานกะทิมะพร้าวหอมกรุ่น"
+      },
+      {
+        "id": "ST-005",
+        "name": "เทศกาลลอยกระทงสุโขทัย",
+        "category": "Culture",
+        "district": "เมืองสุโขทัย",
+        "tambon": "เมืองเก่า",
+        "lat": 17.017,
+        "long": 99.700,
+        "image_path": "/img/sukhothai/st-005.jpg",
+        "event_date": "พฤศจิกายน (วันเพ็ญเดือน 12)",
+        "description": "เทศกาลลอยกระทงที่ยิ่งใหญ่ที่สุดในประเทศ กำเนิดในสุโขทัย"
+      }
+    ]
+  },
+  {
+    "province": "เพชรบุรี",
+    "province_en": "Phetchaburi",
+    "region": "ภาคตะวันตก",
+    "region_en": "Western",
+    "total_attractions": 5,
+    "description": "เมืองหวานที่มีขนมหวานขึ้นชื่อ วัดโบราณ และแหล่งธรรมชาติสวยงาม",
+    "attractions": [
+      {
+        "id": "PB-001",
+        "name": "พระนครคีรี",
+        "category": "Must Go",
+        "district": "เมืองเพชรบุรี",
+        "tambon": "คลองกระแชง",
+        "lat": 13.109,
+        "long": 99.941,
+        "image_path": "/img/phetchaburi/pb-001.jpg",
+        "event_date": "เปิดทุกวัน (08:30 - 16:00 น.)",
+        "description": "พระราชวังบนยอดเขาสมัยรัชกาลที่ 4 วิวสวยงาม"
+      },
+      {
+        "id": "PB-002",
+        "name": "วัดมหาธาตุวรวิหาร",
+        "category": "Temple",
+        "district": "เมืองเพชรบุรี",
+        "tambon": "คลองกระแชง",
+        "lat": 13.109,
+        "long": 99.949,
+        "image_path": "/img/phetchaburi/pb-002.jpg",
+        "event_date": "เปิดทุกวัน (06:00 - 18:00 น.)",
+        "description": "วัดเก่าแก่ที่มีปรางค์ 5 ยอด จิตรกรรมฝาผนังโบราณ"
+      },
+      {
+        "id": "PB-003",
+        "name": "ถ้ำเขาหลวง",
+        "category": "Adventure",
+        "district": "เมืองเพชรบุรี",
+        "tambon": "ธงชัย",
+        "lat": 13.128,
+        "long": 99.932,
+        "image_path": "/img/phetchaburi/pb-003.jpg",
+        "event_date": "เปิดทุกวัน (08:00 - 16:00 น.)",
+        "description": "ถ้ำใหญ่มีพระพุทธรูปและหินงอกหินย้อยสวยงาม แสงธรรมชาติส่องลงมา"
+      },
+      {
+        "id": "PB-004",
+        "name": "ขนมหม้อแกงเพชรบุรี",
+        "category": "Food",
+        "district": "เมืองเพชรบุรี",
+        "tambon": "คลองกระแชง",
+        "lat": 13.108,
+        "long": 99.944,
+        "image_path": "/img/phetchaburi/pb-004.jpg",
+        "event_date": "เปิดทุกวัน",
+        "description": "ขนมหม้อแกงต้นตำรับเพชรบุรี หวานมันกลมกล่อม"
+      },
+      {
+        "id": "PB-005",
+        "name": "สงกรานต์เพชรบุรี",
+        "category": "Culture",
+        "district": "เมืองเพชรบุรี",
+        "tambon": "คลองกระแชง",
+        "lat": 13.109,
+        "long": 99.941,
+        "image_path": "/img/phetchaburi/pb-005.jpg",
+        "event_date": "13-15 เมษายน",
+        "description": "เทศกาลสงกรานต์แบบดั้งเดิม มีขบวนแห่และกิจกรรมทางวัฒนธรรม"
+      }
+    ]
+  },
+  {
+    "province": "นครราชสีมา",
+    "province_en": "Nakhon Ratchasima",
+    "region": "ภาคตะวันออกเฉียงเหนือ",
+    "region_en": "Northeastern",
+    "total_attractions": 5,
+    "description": "โคราช เมืองใหญ่แห่งอีสาน มีปราสาทหินโบราณและวัฒนธรรมที่หลากหลาย",
+    "attractions": [
+      {
+        "id": "NR-001",
+        "name": "ปราสาทหินพิมาย",
+        "category": "Must Go",
+        "district": "พิมาย",
+        "tambon": "ในเมือง",
+        "lat": 15.220,
+        "long": 102.494,
+        "image_path": "/img/korat/nr-001.jpg",
+        "event_date": "เปิดทุกวัน (07:30 - 18:00 น.)",
+        "description": "ปราสาทขอมที่ใหญ่ที่สุดในประเทศไทย สร้างในศตวรรษที่ 11"
+      },
+      {
+        "id": "NR-002",
+        "name": "วัดพายัพ",
+        "category": "Temple",
+        "district": "เมืองนครราชสีมา",
+        "tambon": "ในเมือง",
+        "lat": 14.982,
+        "long": 102.110,
+        "image_path": "/img/korat/nr-002.jpg",
+        "event_date": "เปิดทุกวัน (06:00 - 18:00 น.)",
+        "description": "วัดเก่าแก่ในเมืองโคราช ศูนย์รวมจิตใจชาวเมือง"
+      },
+      {
+        "id": "NR-003",
+        "name": "อุทยานแห่งชาติเขาใหญ่",
+        "category": "Adventure",
+        "district": "ปากช่อง",
+        "tambon": "หมูสี",
+        "lat": 14.443,
+        "long": 101.382,
+        "image_path": "/img/korat/nr-003.jpg",
+        "event_date": "เปิดทุกวัน (06:00 - 18:00 น.)",
+        "description": "มรดกโลกทางธรรมชาติ ป่าดงดิบที่มีสัตว์ป่าหลากชนิด"
+      },
+      {
+        "id": "NR-004",
+        "name": "ก้อยหมู",
+        "category": "Food",
+        "district": "เมืองนครราชสีมา",
+        "tambon": "โพธิ์กลาง",
+        "lat": 14.976,
+        "long": 102.104,
+        "image_path": "/img/korat/nr-004.jpg",
+        "event_date": "เปิดทุกวัน (16:00 - 22:00 น.)",
+        "description": "อาหารพื้นเมืองอีสานรสจัด เนื้อหมูหมักสมุนไพร"
+      },
+      {
+        "id": "NR-005",
+        "name": "งานฉลองย่าโมโคราช",
+        "category": "Culture",
+        "district": "เมืองนครราชสีมา",
+        "tambon": "ในเมือง",
+        "lat": 14.978,
+        "long": 102.102,
+        "image_path": "/img/korat/nr-005.jpg",
+        "event_date": "23 มีนาคม - 3 เมษายน",
+        "description": "งานฉลองวีรสตรีท้าวสุรนารี มีขบวนแห่และการแสดงประวัติศาสตร์"
+      }
+    ]
+  }
+]

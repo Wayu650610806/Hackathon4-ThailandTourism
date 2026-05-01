@@ -138,163 +138,127 @@ export default function Home() {
   }[lang];
 
   return (
-    <div style={{ position:'relative', height:'100vh', width:'100vw', background: '#f1f5f9', overflow:'hidden', fontFamily: 'var(--font-geist-sans)' }}>
+    <div className="relative h-screen w-screen bg-[#f1f5f9] overflow-hidden font-[family-name:var(--font-geist-sans)]">
 
       {/* ── Background Fullscreen Map ── */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+      <div className="absolute inset-0 z-0">
         <ThailandMap onProvinceSelect={handleProvinceSelect} selectedProvince={selectedProvince} lang={lang} />
       </div>
 
       {/* ── Floating Header Card ── */}
-      <header style={{
-        position: 'absolute',
-        top: 24, left: 24, right: 24,
-        background: 'rgba(255, 255, 255, 0.9)',
-        backdropFilter: 'blur(12px)',
-        borderRadius: '20px',
-        border: '1px solid rgba(255, 255, 255, 0.5)',
-        boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-        padding: '0 28px',
-        display: 'flex', alignItems: 'center', gap: 24,
-        height: 80, zIndex: 100,
-      }}>
-        {/* Logo */}
-        <div style={{ display:'flex', alignItems:'center', gap:12, flexShrink:0 }}>
-          <div style={{
-            width: 46, height: 46,
-            background: 'linear-gradient(135deg,#3B82F6,#2563EB)',
-            borderRadius: 14,
-            display: 'flex', alignItems:'center', justifyContent:'center',
-            fontSize: 24,
-            boxShadow: '0 4px 14px rgba(37,99,235,0.3)',
-          }}>🗺️</div>
-          <div>
-            <div className="gradient-text" style={{ fontSize:20, fontWeight:900, lineHeight:1.1, letterSpacing: '-0.02em' }}>
-              {T.title}
+      <header className="absolute top-4 left-4 right-4 md:top-6 md:left-6 md:right-6 bg-white/90 backdrop-blur-md rounded-[20px] border border-white/50 shadow-lg px-4 md:px-7 flex flex-col md:flex-row items-center gap-4 md:gap-6 py-4 md:py-0 md:h-20 z-[100]">
+        {/* Logo and Mobile Header Row */}
+        <div className="flex items-center justify-between w-full md:w-auto gap-3 flex-shrink-0">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 md:w-11 md:h-11 bg-gradient-to-br from-[#3B82F6] to-[#2563EB] rounded-xl flex items-center justify-center text-xl md:text-2xl shadow-blue-500/30 shadow-lg">🗺️</div>
+            <div>
+              <div className="gradient-text text-lg md:text-xl font-black leading-tight tracking-tight">
+                {T.title}
+              </div>
+              <div className="text-[9px] md:text-[10px] color-[#64748b] tracking-widest font-bold uppercase">
+                {T.subtitle}
+              </div>
             </div>
-            <div style={{ fontSize:10, color: '#64748b', letterSpacing:'0.1em', fontWeight:700, textTransform: 'uppercase' }}>
-              {T.subtitle}
-            </div>
+          </div>
+          
+          {/* Mobile Language Toggle */}
+          <div className="flex md:hidden bg-[#f1f5f9] p-1 rounded-xl gap-0.5">
+            {['TH','EN'].map(l => (
+              <button
+                key={l}
+                onClick={() => setLang(l as 'TH' | 'EN')}
+                className={`px-3 py-1.5 rounded-lg border-none text-[11px] font-extrabold cursor-pointer transition-all ${
+                  lang === l ? 'bg-white text-[#1e293b] shadow-sm' : 'bg-transparent text-[#64748b]'
+                }`}
+              >{l}</button>
+            ))}
           </div>
         </div>
 
         {/* Search */}
-        <div style={{ flex:1, maxWidth:450 }}>
+        <div className="w-full md:flex-1 md:max-w-[450px]">
           <SearchBar onSelect={handleProvinceSelect} selectedProvince={selectedProvince} lang={lang} />
         </div>
 
-        {/* Date picker */}
-        <div style={{ width:220, flexShrink:0 }}>
-          <DatePicker value={selectedDate} onChange={setSelectedDate} lang={lang} />
-        </div>
+        {/* Desktop Controls (Hidden on Mobile) */}
+        <div className="hidden md:flex items-center gap-6 flex-shrink-0">
+          {/* Date picker */}
+          <div className="w-[220px]">
+            <DatePicker value={selectedDate} onChange={setSelectedDate} lang={lang} />
+          </div>
 
-        {/* Language Toggle */}
-        <div style={{ display:'flex', background:'#f1f5f9', padding:4, borderRadius:12, gap:2 }}>
-          {['TH','EN'].map(l => (
-            <button
-              key={l}
-              onClick={() => setLang(l as 'TH' | 'EN')}
-              style={{
-                padding:'6px 12px', borderRadius:8, border:'none',
-                fontSize:12, fontWeight:800, cursor:'pointer',
-                background: lang === l ? '#fff' : 'transparent',
-                color: lang === l ? '#1e293b' : '#64748b',
-                boxShadow: lang === l ? '0 2px 4px rgba(0,0,0,0.05)' : 'none',
-                transition: 'all 0.2s'
-              }}
-            >{l}</button>
-          ))}
-        </div>
+          {/* Language Toggle */}
+          <div className="flex bg-[#f1f5f9] p-1 rounded-xl gap-0.5">
+            {['TH','EN'].map(l => (
+              <button
+                key={l}
+                onClick={() => setLang(l as 'TH' | 'EN')}
+                className={`px-3 py-1.5 rounded-lg border-none text-xs font-extrabold cursor-pointer transition-all ${
+                  lang === l ? 'bg-white text-[#1e293b] shadow-sm' : 'bg-transparent text-[#64748b]'
+                }`}
+              >{l}</button>
+            ))}
+          </div>
 
-        {/* Stats Pills */}
-        <div style={{ display:'flex', gap:8, flexShrink:0 }}>
-          {[
-            { num:'77', label: T.provinces, color: '#8B5CF6' },
-            { num:'6',  label: 'Regions', color:'#3B82F6' },
-          ].map(({ num, label, color }) => (
-            <div key={label} style={{
-              display:'flex', flexDirection:'column', alignItems:'center',
-              padding: '8px 16px',
-              background: '#fff',
-              borderRadius: '14px',
-              border: '1px solid #f1f5f9',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
-            }}>
-              <span style={{ fontSize:18, fontWeight:900, color, lineHeight:1.1 }}>{num}</span>
-              <span style={{ fontSize:9, color: '#94a3b8', fontWeight:700, textTransform:'uppercase' }}>{label}</span>
-            </div>
-          ))}
+          {/* Stats Pills */}
+          <div className="flex gap-2">
+            {[
+              { num:'77', label: T.provinces, color: '#8B5CF6' },
+              { num:'6',  label: 'Regions', color:'#3B82F6' },
+            ].map(({ num, label, color }) => (
+              <div key={label} className="flex flex-col items-center px-4 py-2 bg-white rounded-2xl border border-[#f1f5f9] shadow-sm">
+                <span className="text-lg font-black leading-tight" style={{ color }}>{num}</span>
+                <span className="text-[9px] text-[#94a3b8] font-bold uppercase">{label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        {/* Mobile Date Row (Visible only on Mobile) */}
+        <div className="flex md:hidden w-full items-center gap-3">
+           <div className="flex-1">
+             <DatePicker value={selectedDate} onChange={setSelectedDate} lang={lang} />
+           </div>
         </div>
       </header>
 
       {/* ── Floating Left Sidebar (Region Filter) ── */}
-      <div style={{
-        position: 'absolute',
-        top: 128, left: 24, bottom: 40,
-        width: 220,
-        borderRadius: '24px',
-        background: 'rgba(255, 255, 255, 0.85)',
-        backdropFilter: 'blur(10px)',
-        border: '1px solid rgba(255, 255, 255, 0.5)',
-        boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)',
-        padding: '24px 16px',
-        display: 'flex', flexDirection:'column', gap:10,
-        overflowY: 'auto',
-        zIndex: 50,
-      }}>
-        <div style={{ fontSize:11, color: '#64748b', textTransform:'uppercase', letterSpacing:'0.12em', fontWeight:800, marginBottom:6, paddingLeft:8 }}>
+      <div className="hidden md:flex absolute top-[128px] left-6 bottom-10 w-[220px] rounded-[24px] bg-white/85 backdrop-blur-md border border-white/50 shadow-lg p-6 flex-col gap-[10px] overflow-y-auto z-50">
+        <div className="text-[11px] text-[#64748b] uppercase tracking-[0.12em] font-extrabold mb-1.5 pl-2">
           {T.regions}
         </div>
 
         {regionStats.map(({ region, color, count, name_en }) => (
-          <div key={region} style={{
-            display:'flex', alignItems:'center', gap:10,
-            padding: '10px 14px',
-            background: '#fff',
-            borderRadius: 16,
-            border: `1.5px solid #f1f5f9`,
-            boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
-            transition: 'all 0.2s ease',
-            cursor: 'default'
-          }}>
-            <div style={{ width:12, height:12, borderRadius:'50%', background: color, flexShrink:0, boxShadow: `0 0 8px ${color}40` }} />
-            <div style={{ flex:1, minWidth:0, fontSize:13, color: '#1e293b', fontWeight:700, lineHeight:1.3 }}>
+          <div key={region} className="flex items-center gap-[10px] p-[10px_14px] bg-white rounded-2xl border-[1.5px] border-[#f1f5f9] shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-all cursor-default">
+            <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ background: color, boxShadow: `0 0 8px ${color}40` }} />
+            <div className="flex-1 min-w-0 text-[13px] text-[#1e293b] font-bold leading-[1.3]">
               {lang === 'TH' ? region.replace('ภาค','') : name_en}
             </div>
-            <div style={{
-              fontSize:11, fontWeight:800, color,
-              background: `${color}15`,
-              padding:'2px 8px', borderRadius:10,
-            }}>{count}</div>
+            <div className="text-[11px] font-extrabold px-2 py-0.5 rounded-[10px]" style={{ color, background: `${color}15` }}>
+              {count}
+            </div>
           </div>
         ))}
 
         {/* Legend / Tip */}
-        <div style={{ marginTop:'auto', padding:'16px', background: 'linear-gradient(135deg, #f8fafc, #f1f5f9)', borderRadius:20, border:'1px solid #e2e8f0' }}>
-          <div style={{ fontSize:12, color: '#475569', lineHeight:1.6, fontWeight:600 }}>
+        <div className="mt-auto p-4 bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] rounded-[20px] border border-[#e2e8f0]">
+          <div className="text-xs text-[#475569] font-semibold leading-relaxed">
             {T.tip}
           </div>
         </div>
       </div>
 
-      {/* ── Floating Right Sidebar (Province Detail) ── */}
-      <div style={{
-        position: 'absolute',
-        top: 128, right: 24, bottom: 40,
-        width: sidebarVisible ? 440 : 0,
-        borderRadius: '28px',
-        background: 'rgba(255, 255, 255, 0.92)',
-        backdropFilter: 'blur(16px)',
-        border: sidebarVisible ? '1px solid rgba(255, 255, 255, 0.5)' : 'none',
-        boxShadow: sidebarVisible ? '0 25px 50px -12px rgba(0, 0, 0, 0.25)' : 'none',
-        overflow: 'hidden',
-        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-        transform: sidebarVisible ? 'translateX(0)' : 'translateX(40px)',
-        opacity: sidebarVisible ? 1 : 0,
-        zIndex: 100,
-      }}>
+      {/* ── Floating Sidebar (Province Detail) ── */}
+      <div 
+        className={`fixed md:absolute z-[1000] md:z-[100] transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1) overflow-hidden
+          ${sidebarVisible 
+            ? 'opacity-100 translate-y-0 md:translate-x-0' 
+            : 'opacity-0 translate-y-full md:translate-y-0 md:translate-x-[40px] pointer-events-none'}
+          inset-4 md:inset-auto md:top-[128px] md:right-6 md:bottom-10 md:w-[440px]
+          bg-white/95 backdrop-blur-xl rounded-[28px] border border-white/50 shadow-2xl`}
+      >
         {sidebarVisible && (
-          <div style={{ width:440, height:'100%', overflowY:'auto' }}>
+          <div className="w-full h-full overflow-y-auto">
             <ProvincePanel
               province={provinceData}
               weatherData={weatherData}
@@ -306,49 +270,24 @@ export default function Home() {
         )}
       </div>
 
-      {/* ── Fullscreen Interactive Tooltip (Floating) ── */}
+      {/* ── Tooltip (Hidden on Mobile) ── */}
       {!sidebarVisible && (
-        <div style={{
-          position: 'absolute',
-          top: 128, right: 24,
-          width: 64, height: 64,
-          borderRadius: '50%',
-          background: 'rgba(255, 255, 255, 0.9)',
-          backdropFilter: 'blur(8px)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: 28,
-          boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-          cursor: 'pointer',
-          animation: 'float 3s ease-in-out infinite',
-          zIndex: 50,
-          border: '1px solid rgba(255,255,255,0.5)'
-        }}>
+        <div className="hidden md:flex absolute top-[128px] right-6 w-16 h-16 rounded-full bg-white/90 backdrop-blur-md items-center justify-center text-3xl shadow-lg cursor-pointer animate-float z-50 border border-white/50">
           📍
         </div>
       )}
 
-      {/* ── Minimal Bottom Status Bar ── */}
-      <div style={{
-        position: 'absolute',
-        bottom: 0, left: 0, right: 0,
-        height: 32,
-        background: 'rgba(255, 255, 255, 0.6)',
-        backdropFilter: 'blur(4px)',
-        borderTop: '1px solid rgba(0,0,0,0.05)',
-        display: 'flex', alignItems: 'center',
-        padding: '0 24px', gap: 24,
-        fontSize: 11, color: '#64748b', fontWeight: 600,
-        zIndex: 5,
-      }}>
-        <div style={{ display:'flex', alignItems:'center', gap:6 }}>
-          <div style={{ width:6, height:6, borderRadius:'50%', background:'#22c55e', boxShadow:'0 0 6px #22c55e' }} />
+      {/* ── Bottom Status Bar (Hidden on Mobile) ── */}
+      <div className="hidden md:flex absolute bottom-0 left-0 right-0 h-8 bg-white/60 backdrop-blur-[4px] border-t border-black/5 items-center px-6 gap-6 text-[11px] text-[#64748b] font-semibold z-[5]">
+        <div className="flex items-center gap-1.5">
+          <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e] shadow-[0_0_6px_#22c55e]" />
           <span>{T.connected}</span>
         </div>
         <span>{lang === 'TH' ? `ข้อมูล: ${provinces.length} / 77 จังหวัด` : `Data: ${provinces.length} / 77 Provinces`}</span>
-        <span style={{ marginLeft: 'auto' }}>
+        <span className="ml-auto">
           {new Date(selectedDate + 'T00:00:00').toLocaleDateString(lang === 'TH' ? 'th-TH' : 'en-US', { day:'numeric', month:'long', year: lang === 'TH' ? 'numeric' : 'numeric' })}
         </span>
-        <span style={{ opacity: 0.5 }}>|</span>
+        <span className="opacity-50">|</span>
         <span>{T.madeFor}</span>
       </div>
     </div>

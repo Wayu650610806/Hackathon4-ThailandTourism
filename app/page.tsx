@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import ProvincePanel from './components/ProvincePanel';
 import SearchBar from './components/SearchBar';
@@ -33,18 +33,36 @@ export default function Home() {
   const [selectedPeriod, setSelectedPeriod] = useState({ month: now.getMonth() + 1, year: now.getFullYear() });
   const [selectedProvince, setSelectedProvince] = useState<string | null>(null);
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
-  const [provinceData, setProvinceData] = useState<Province | null>(null);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [weatherLoading, setWeatherLoading] = useState(false);
   const [provinces, setProvinces] = useState<Province[]>([]);
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [lang, setLang] = useState<'TH' | 'EN'>('TH');
 
+  const provinceData = useMemo(() => {
+    if (!selectedProvince) return null;
+    const found = provinces.find(p => p.province === selectedProvince);
+    if (found) return found;
+    
+    const info  = ALL_77_PROVINCES.find(p => p.name === selectedProvince);
+    const region = info?.region || 'ภาคกลาง';
+    return {
+      province: selectedProvince,
+      province_en: info?.name_en || selectedProvince,
+      region, region_en: THA_REG_MAP[region] || region,
+      total_attractions: 0,
+      description: lang === 'TH' 
+        ? 'ข้อมูลสถานที่ท่องเที่ยวในจังหวัดนี้กำลังอัปเดต กรุณาติดตามในเร็วๆ นี้' 
+        : 'Tourist attraction information is being updated. Please stay tuned.',
+      attractions: [],
+    };
+  }, [provinces, selectedProvince, lang]);
+
   useEffect(() => {
     import('@/data/provinces.json').then(mod => setProvinces(mod.default as Province[]));
   }, []);
 
-  const fetchWeather = useCallback(async (provinceName: string, period: { month: number; year: number }, region: string) => {
+  const fetchWeather = useCallback(async (provinceName: string, period: { month: number; year: number }) => {
     setWeatherLoading(true);
     const info = ALL_77_PROVINCES.find(p => p.name === provinceName);
     const provinceEn = info?.name_en || provinceName;
@@ -109,51 +127,19 @@ export default function Home() {
   const handleProvinceSelect = useCallback((provinceName: string) => {
     setSelectedProvince(provinceName);
     setSidebarVisible(true);
-    const found = provinces.find(p => p.province === provinceName);
-    const info  = ALL_77_PROVINCES.find(p => p.name === provinceName);
-    const region = info?.region || 'ภาคกลาง';
-    
-    const placeholderDesc = lang === 'TH' 
-      ? 'ข้อมูลสถานที่ท่องเที่ยวในจังหวัดนี้กำลังอัปเดต กรุณาติดตามในเร็วๆ นี้' 
-      : 'Tourist attraction information is being updated. Please stay tuned.';
+    fetchWeather(provinceName, selectedPeriod);
+  }, [selectedPeriod, fetchWeather]);
 
-    setProvinceData(found ?? {
-      province: provinceName,
-      province_en: info?.name_en || provinceName,
-      region, region_en: THA_REG_MAP[region] || region,
-      total_attractions: 0,
-      description: placeholderDesc,
-      attractions: [],
-    });
-    fetchWeather(provinceName, selectedPeriod, region);
-  }, [provinces, selectedPeriod, fetchWeather, lang]);
-
-  // Update description when language toggles for placeholder data
-  useEffect(() => {
-    if (selectedProvince && provinceData && provinceData.total_attractions === 0) {
-      setProvinceData(prev => {
-        if (!prev) return null;
-        return {
-          ...prev,
-          description: lang === 'TH' 
-            ? 'ข้อมูลสถานที่ท่องเที่ยวในจังหวัดนี้กำลังอัปเดต กรุณาติดตามในเร็วๆ นี้' 
-            : 'Tourist attraction information is being updated. Please stay tuned.',
-        };
-      });
-    }
-  }, [lang, selectedProvince]); // Dependency on lang is key here
-
-  useEffect(() => {
+  const handlePeriodChange = useCallback((newPeriod: { month: number; year: number }) => {
+    setSelectedPeriod(newPeriod);
     if (selectedProvince) {
-      const region = ALL_77_PROVINCES.find(p => p.name === selectedProvince)?.region || 'ภาคกลาง';
-      fetchWeather(selectedProvince, selectedPeriod, region);
+      fetchWeather(selectedProvince, newPeriod);
     }
-  }, [selectedPeriod, selectedProvince, fetchWeather]);
+  }, [selectedProvince, fetchWeather]);
 
   function handleClose() {
     setSidebarVisible(false);
     setSelectedProvince(null);
-    setProvinceData(null);
     setWeatherData(null);
   }
 
@@ -235,7 +221,7 @@ export default function Home() {
         <div className="hidden lg:flex items-center gap-6 flex-shrink-0">
           {/* Date picker */}
           <div className="w-[220px]">
-            <DatePicker value={selectedPeriod} onChange={setSelectedPeriod} lang={lang} />
+            <DatePicker value={selectedPeriod} onChange={handlePeriodChange} lang={lang} />
           </div>
 
           {/* Language Toggle */}
@@ -268,7 +254,7 @@ export default function Home() {
         {/* Mobile/Tablet Date Row (Visible only on Mobile/Tablet) */}
         <div className="flex lg:hidden w-full items-center gap-3">
            <div className="flex-1">
-             <DatePicker value={selectedPeriod} onChange={setSelectedPeriod} lang={lang} />
+             <DatePicker value={selectedPeriod} onChange={handlePeriodChange} lang={lang} />
            </div>
         </div>
       </header>

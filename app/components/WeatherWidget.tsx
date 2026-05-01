@@ -1,6 +1,6 @@
 'use client';
 
-import { WeatherData, WeatherCondition, CrowdLevel } from '@/app/types';
+import { WeatherData, WeatherCondition } from '@/app/types';
 
 const C = {
   white:  '#FFFFFF',

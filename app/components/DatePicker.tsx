@@ -31,15 +31,6 @@ interface Props {
 export default function DatePicker({ value, onChange, lang }: Props) {
   const [open, setOpen] = useState(false);
 
-  const T = {
-    TH: {
-      placeholder: 'เลือกเดือนและปี',
-    },
-    EN: {
-      placeholder: 'Select Month & Year',
-    }
-  }[lang];
-
   const handleMonthSelect = (month: number) => {
     onChange({ ...value, month });
     setOpen(false);

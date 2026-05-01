@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { ALL_77_PROVINCES } from '@/data/thailand-regions';
 
 const C = {
@@ -57,6 +57,7 @@ export default function SearchBar({ onSelect, selectedProvince, lang }: Props) {
   function handleSelect(name: string) {
     onSelect(name);
     setQuery('');
+    setHighlighted(-1);
     setFocused(false);
     inputRef.current?.blur();
   }
@@ -68,8 +69,6 @@ export default function SearchBar({ onSelect, selectedProvince, lang }: Props) {
     else if (e.key === 'Enter' && highlighted >= 0) handleSelect(results[highlighted].name);
     else if (e.key === 'Escape') setFocused(false);
   }
-
-  useEffect(() => { setHighlighted(-1); }, [query]);
 
   const isFocused = focused;
   const placeholder = lang === 'TH' ? 'ค้นหาจังหวัด… (เช่น เชียงใหม่, Phuket)' : 'Search provinces… (e.g. Bangkok, Phuket)';
@@ -93,7 +92,10 @@ export default function SearchBar({ onSelect, selectedProvince, lang }: Props) {
           ref={inputRef}
           type="text"
           value={query}
-          onChange={e => setQuery(e.target.value)}
+          onChange={e => {
+            setQuery(e.target.value);
+            setHighlighted(-1);
+          }}
           onFocus={() => setFocused(true)}
           onBlur={() => setTimeout(() => setFocused(false), 150)}
           onKeyDown={handleKeyDown}
@@ -104,7 +106,7 @@ export default function SearchBar({ onSelect, selectedProvince, lang }: Props) {
           }}
         />
         {query && (
-          <button onClick={() => setQuery('')}
+          <button onClick={() => { setQuery(''); setHighlighted(-1); }}
             style={{ background:'none', border:'none', cursor:'pointer', color: C.muted, fontSize:13, padding:'0' }}>
             ✕
           </button>

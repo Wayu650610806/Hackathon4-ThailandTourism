@@ -164,9 +164,9 @@ const GeoLayer = memo(function GeoLayer({
 }) {
   return (
     <Geographies geography={GEO_URL}>
-      {({ geographies }: any) =>
-        geographies.map((geo: any) => {
-          const thaiName = resolveThaiName(geo.properties as Record<string, unknown>);
+      {({ geographies }: { geographies: Array<{ properties: Record<string, unknown>; rsmKey: string }> }) =>
+        geographies.map((geo) => {
+          const thaiName = resolveThaiName(geo.properties);
           const info = ALL_77_PROVINCES.find((p) => p.name === thaiName);
           const region = info?.region || '';
           const isSelected = selectedProvince === thaiName;
@@ -174,7 +174,7 @@ const GeoLayer = memo(function GeoLayer({
           const hasRegionFilter = selectedRegion !== null;
 
           const baseFill = REGION_FILLS[region] || '#8B5CF6';
-          let defaultFill = isSelected ? '#5B21B6' : baseFill;
+          const defaultFill = isSelected ? '#5B21B6' : baseFill;
           
           // Apply region filter effects
           let opacity = 1;

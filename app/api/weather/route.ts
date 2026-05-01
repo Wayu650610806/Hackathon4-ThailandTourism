@@ -71,9 +71,6 @@ function generateMockData(location: string, date: string, region: string): Weath
   const seed = location.charCodeAt(0) + month * 31 + dateObj.getDate();
 
   const pattern = weatherPatterns[region] || weatherPatterns['ภาคกลาง'];
-  const conditionIdx = Math.floor(seededRandom(seed) * pattern.conditions.length);
-  const condition = pattern.conditions[conditionIdx];
-
   const [minTemp, maxTemp] = pattern.tempRange;
   const temp = Math.round(minTemp + seededRandom(seed + 1) * (maxTemp - minTemp));
   const humidity = Math.round(40 + seededRandom(seed + 2) * 50);
@@ -115,19 +112,24 @@ function generateMockData(location: string, date: string, region: string): Weath
   else if (totalVisitors > 50000) travelerLevel = 'high';
   else if (totalVisitors > 30000) travelerLevel = 'medium';
 
+  const resultCondition: WeatherCondition = 
+    forecastMode === 'rain' ? 'stormy' : 
+    forecastMode === 'cold' ? 'cool' : 
+    forecastMode === 'hot' ? 'hot' : 'sunny';
+
   return {
     location,
     date,
     weather: {
-      condition: forecastMode === 'rain' ? 'stormy' : 
-                 forecastMode === 'cold' ? 'cool' : 
-                 forecastMode === 'hot' ? 'hot' : 'sunny',
+      condition: resultCondition,
       temperature: temp,
-      description: weatherDescriptions[condition].th,
-      description_en: weatherDescriptions[condition].en,
+      humidity: humidity,
+      description: weatherDescriptions[resultCondition].th,
+      description_en: weatherDescriptions[resultCondition].en,
     },
     crowd: {
       level: crowdLevel,
+      score: crowdScore,
       description: crowdDescriptions[crowdLevel].th,
       description_en: crowdDescriptions[crowdLevel].en,
     },

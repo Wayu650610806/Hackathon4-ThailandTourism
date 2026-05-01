@@ -284,90 +284,40 @@ export default function ThailandMap({ onProvinceSelect, selectedProvince, lang }
       </div>
       
       {/* Zoom Hint Floating */}
-      <div style={{
-        position: 'absolute',
-        bottom: 80,
-        right: 40,
-        background: 'rgba(255,255,255,0.9)',
-        backdropFilter: 'blur(8px)',
-        padding: '10px 20px',
-        borderRadius: '20px',
-        fontSize: '12px',
-        color: '#1e293b',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-        pointerEvents: 'none',
-        border: '1px solid rgba(255,255,255,0.5)',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '8px',
-        fontWeight: 600,
-        zIndex: 10
-      }}>
+      <div className="absolute bottom-[80px] right-4 md:right-10 bg-white/90 backdrop-blur-md px-3 md:px-5 py-2 md:py-2.5 rounded-2xl md:rounded-[20px] text-[10px] md:text-xs text-[#1e293b] shadow-lg pointer-events-none border border-white/50 flex items-center gap-2 font-semibold z-10 text-center leading-tight">
         <span>{T.hint}</span>
       </div>
 
       {/* Hover info bar — Fixed at bottom, floating above map */}
-      <div style={{
-        position: 'absolute',
-        bottom: 30,
-        left: '50%',
-        transform: 'translateX(-50%)',
-        height: 56,
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0 28px',
-        gap: 16,
-        borderRadius: '28px',
-        background: 'rgba(255,255,255,0.95)',
-        backdropFilter: 'blur(10px)',
-        boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-        border: '1px solid rgba(255,255,255,0.5)',
-        zIndex: 20,
-        transition: 'all 0.3s ease',
-      }}>
+      <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 min-h-[48px] md:h-14 w-[90%] md:w-auto flex flex-wrap md:flex-nowrap items-center justify-center px-4 md:px-7 gap-2 md:gap-4 rounded-[24px] md:rounded-[28px] bg-white/95 backdrop-blur-md shadow-xl border border-white/50 z-20 transition-all duration-300 py-2 md:py-0">
         {hoverInfo ? (
           <>
-            <div style={{
-              width: 12, height: 12, borderRadius: '50%',
+            <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full flex-shrink-0" style={{
               background: accentColor,
               boxShadow: `0 0 12px ${accentColor}80`,
-              flexShrink: 0,
             }} />
-            <span style={{ fontWeight: 800, fontSize: 17, color: '#1e293b' }}>
+            <span className="font-black text-sm md:text-[17px] text-[#1e293b]">
               {lang === 'TH' ? hoverInfo.name : hoverInfo.name_en}
             </span>
-            <span style={{
-              fontSize: 12, color: '#fff',
-              background: accentColor,
-              borderRadius: 20,
-              padding: '3px 12px',
-              fontWeight: 700,
-              textTransform: 'uppercase',
-              letterSpacing: '0.05em'
-            }}>
+            <span className="text-[10px] md:text-xs text-white rounded-xl md:rounded-[20px] px-2.5 md:px-3 py-0.5 md:py-1 font-bold uppercase tracking-wider flex-shrink-0" style={{ background: accentColor }}>
               {lang === 'TH' ? hoverInfo.region : hoverInfo.region_en}
             </span>
-            <span style={{ fontSize: 13, color: '#64748b', fontWeight: 500 }}>
+            <span className="text-[11px] md:text-sm text-[#64748b] font-medium text-center">
               {T.clickDetail}
             </span>
           </>
         ) : selectedInfo ? (
           <>
-            <div style={{
-              width: 12, height: 12, borderRadius: '50%',
-              background: '#1e293b',
-              boxShadow: '0 0 12px rgba(30,41,59,0.4)',
-              flexShrink:0,
-            }} />
-            <span style={{ fontWeight: 800, fontSize: 17, color: '#1e293b' }}>
+            <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#1e293b] shadow-lg flex-shrink-0" />
+            <span className="font-black text-sm md:text-[17px] text-[#1e293b]">
               📍 {lang === 'TH' ? selectedProvince : selectedInfo.name_en}
             </span>
-            <span style={{ fontSize: 13, color: '#64748b', fontWeight: 500 }}>
+            <span className="text-[11px] md:text-sm text-[#64748b] font-medium">
               {T.viewing}
             </span>
           </>
         ) : (
-          <span style={{ fontSize: 14, color: '#64748b', fontWeight: 600, letterSpacing: '0.02em' }}>
+          <span className="text-[11px] md:text-sm text-[#64748b] font-bold tracking-tight md:tracking-normal text-center leading-tight">
             {T.explore}
           </span>
         )}

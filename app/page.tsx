@@ -200,8 +200,8 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Stats Pills */}
-          <div className="flex gap-2">
+          {/* Stats Pills (Hidden on Tablets, shown on Large Desktop) */}
+          <div className="hidden lg:flex gap-2">
             {[
               { num:'77', label: T.provinces, color: '#8B5CF6' },
               { num:'6',  label: 'Regions', color:'#3B82F6' },
@@ -222,8 +222,8 @@ export default function Home() {
         </div>
       </header>
 
-      {/* ── Floating Left Sidebar (Region Filter) ── */}
-      <div className="hidden md:flex absolute top-[128px] left-6 bottom-10 w-[220px] rounded-[24px] bg-white/85 backdrop-blur-md border border-white/50 shadow-lg p-6 flex-col gap-[10px] overflow-y-auto z-50">
+      {/* ── Floating Left Sidebar (Region Filter - Hidden on Tablets, shown on Large Desktop) ── */}
+      <div className="hidden lg:flex absolute top-[128px] left-6 bottom-10 w-[220px] rounded-[24px] bg-white/85 backdrop-blur-md border border-white/50 shadow-lg p-6 flex-col gap-[10px] overflow-y-auto z-50">
         <div className="text-[11px] text-[#64748b] uppercase tracking-[0.12em] font-extrabold mb-1.5 pl-2">
           {T.regions}
         </div>
@@ -254,7 +254,7 @@ export default function Home() {
           ${sidebarVisible 
             ? 'opacity-100 translate-y-0 md:translate-x-0' 
             : 'opacity-0 translate-y-full md:translate-y-0 md:translate-x-[40px] pointer-events-none'}
-          inset-4 md:inset-auto md:top-[128px] md:right-6 md:bottom-10 md:w-[440px]
+          inset-4 md:inset-auto md:top-[128px] md:right-6 md:bottom-10 md:w-[360px] lg:w-[440px]
           bg-white/95 backdrop-blur-xl rounded-[28px] border border-white/50 shadow-2xl`}
       >
         {sidebarVisible && (
@@ -270,15 +270,15 @@ export default function Home() {
         )}
       </div>
 
-      {/* ── Tooltip (Hidden on Mobile) ── */}
+      {/* ── Tooltip (Hidden on Tablets, shown on Large Desktop) ── */}
       {!sidebarVisible && (
-        <div className="hidden md:flex absolute top-[128px] right-6 w-16 h-16 rounded-full bg-white/90 backdrop-blur-md items-center justify-center text-3xl shadow-lg cursor-pointer animate-float z-50 border border-white/50">
+        <div className="hidden lg:flex absolute top-[128px] right-6 w-16 h-16 rounded-full bg-white/90 backdrop-blur-md items-center justify-center text-3xl shadow-lg cursor-pointer animate-float z-50 border border-white/50">
           📍
         </div>
       )}
 
-      {/* ── Bottom Status Bar (Hidden on Mobile) ── */}
-      <div className="hidden md:flex absolute bottom-0 left-0 right-0 h-8 bg-white/60 backdrop-blur-[4px] border-t border-black/5 items-center px-6 gap-6 text-[11px] text-[#64748b] font-semibold z-[5]">
+      {/* ── Bottom Status Bar (Hidden on Tablets, shown on Large Desktop) ── */}
+      <div className="hidden lg:flex absolute bottom-0 left-0 right-0 h-8 bg-white/60 backdrop-blur-[4px] border-t border-black/5 items-center px-6 gap-6 text-[11px] text-[#64748b] font-semibold z-[5]">
         <div className="flex items-center gap-1.5">
           <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e] shadow-[0_0_6px_#22c55e]" />
           <span>{T.connected}</span>

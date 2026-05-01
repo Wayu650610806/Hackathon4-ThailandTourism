@@ -289,35 +289,35 @@ export default function ThailandMap({ onProvinceSelect, selectedProvince, lang }
       </div>
 
       {/* Hover info bar — Fixed at bottom, floating above map */}
-      <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 min-h-[48px] md:h-14 w-[90%] md:w-auto flex flex-wrap md:flex-nowrap items-center justify-center px-4 md:px-7 gap-2 md:gap-4 rounded-[24px] md:rounded-[28px] bg-white/95 backdrop-blur-md shadow-xl border border-white/50 z-20 transition-all duration-300 py-2 md:py-0">
+      <div className="absolute bottom-6 lg:bottom-8 left-1/2 -translate-x-1/2 min-h-[48px] lg:h-14 w-[90%] lg:w-auto flex flex-wrap lg:flex-nowrap items-center justify-center px-4 lg:px-7 gap-2 lg:gap-4 rounded-[24px] lg:rounded-[28px] bg-white/95 backdrop-blur-md shadow-xl border border-white/50 z-20 transition-all duration-300 py-2 lg:py-0">
         {hoverInfo ? (
           <>
-            <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full flex-shrink-0" style={{
+            <div className="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full flex-shrink-0" style={{
               background: accentColor,
               boxShadow: `0 0 12px ${accentColor}80`,
             }} />
-            <span className="font-black text-sm md:text-[17px] text-[#1e293b]">
+            <span className="font-black text-sm lg:text-[17px] text-[#1e293b]">
               {lang === 'TH' ? hoverInfo.name : hoverInfo.name_en}
             </span>
-            <span className="text-[10px] md:text-xs text-white rounded-xl md:rounded-[20px] px-2.5 md:px-3 py-0.5 md:py-1 font-bold uppercase tracking-wider flex-shrink-0" style={{ background: accentColor }}>
+            <span className="text-[10px] lg:text-xs text-white rounded-xl lg:rounded-[20px] px-2.5 lg:px-3 py-0.5 lg:py-1 font-bold uppercase tracking-wider flex-shrink-0" style={{ background: accentColor }}>
               {lang === 'TH' ? hoverInfo.region : hoverInfo.region_en}
             </span>
-            <span className="text-[11px] md:text-sm text-[#64748b] font-medium text-center">
+            <span className="text-[11px] lg:text-sm text-[#64748b] font-medium text-center">
               {T.clickDetail}
             </span>
           </>
         ) : selectedInfo ? (
           <>
-            <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-[#1e293b] shadow-lg flex-shrink-0" />
-            <span className="font-black text-sm md:text-[17px] text-[#1e293b]">
+            <div className="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-[#1e293b] shadow-lg flex-shrink-0" />
+            <span className="font-black text-sm lg:text-[17px] text-[#1e293b]">
               📍 {lang === 'TH' ? selectedProvince : selectedInfo.name_en}
             </span>
-            <span className="text-[11px] md:text-sm text-[#64748b] font-medium">
+            <span className="text-[11px] lg:text-sm text-[#64748b] font-medium">
               {T.viewing}
             </span>
           </>
         ) : (
-          <span className="text-[11px] md:text-sm text-[#64748b] font-bold tracking-tight md:tracking-normal text-center leading-tight">
+          <span className="text-[11px] lg:text-sm text-[#64748b] font-bold tracking-tight lg:tracking-normal text-center leading-tight">
             {T.explore}
           </span>
         )}

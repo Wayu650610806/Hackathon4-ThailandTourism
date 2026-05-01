@@ -93,18 +93,19 @@ function CloudIcon({ rainy = false, stormy = false }: { rainy?: boolean; stormy?
 function CoolIcon() {
   return (
     <div className="relative w-[60px] h-[60px] flex items-center justify-center">
-      {/* Wind Wisps */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[0, 1, 2].map(i => (
-          <div key={i} className="animate-wind opacity-40" style={{ marginTop: `${10 + i * 15}px`, animationDelay: `${i * 0.5}s` }}>
-            <div className="w-8 h-[2px] bg-blue-300 rounded-full" />
-          </div>
-        ))}
-      </div>
-      {/* Central Large Snowflake */}
-      <svg viewBox="0 0 24 24" className="w-10 h-10 text-blue-500 animate-spin-slow z-10 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]">
-        <path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2h6zm1 12l-2-2 2-2 2 2-2 2zm-12-12l2-2 2 2-2 2-2-2zm24 0l-2-2-2 2 2 2 2-2zM12 1l2 2-2 2-2-2 2-2z" />
+      <svg viewBox="0 0 24 24" className="w-12 h-12 text-blue-400 animate-spin-slow drop-shadow-[0_0_10px_rgba(147,197,253,0.8)]">
+        <path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2h6zm1 12l-2-2 2-2 2 2-2 2zm-12-12l2-2 2 2-2 2-2-2zm24 0l-2-2-2 2 2 2 2-2zM12 1l2 2-2 2-2-2 2-2zM4.34 4.34l1.42 1.42 1.41-1.42-1.41-1.41-1.42 1.41zm15.32 15.32l1.42 1.42 1.41-1.42-1.41-1.41-1.42 1.41zM4.34 19.66l1.41-1.41-1.41-1.42-1.42 1.42 1.42 1.41zm15.32-15.32l1.41-1.41-1.41-1.42-1.42 1.42 1.42 1.41z" />
       </svg>
+      {/* Small sparkling dots */}
+      {[0, 1, 2, 3].map(i => (
+        <div key={i} className="absolute w-1 h-1 bg-blue-200 rounded-full animate-pulse" 
+          style={{ 
+            top: `${10 + (i % 2) * 30}%`, 
+            left: `${15 + Math.floor(i / 2) * 60}%`,
+            animationDelay: `${i * 0.5}s`
+          }} 
+        />
+      ))}
     </div>
   );
 }

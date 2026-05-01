@@ -146,23 +146,23 @@ export default function Home() {
       </div>
 
       {/* ── Floating Header Card ── */}
-      <header className="absolute top-4 left-4 right-4 md:top-6 md:left-6 md:right-6 bg-white/90 backdrop-blur-md rounded-[20px] border border-white/50 shadow-lg px-4 md:px-7 flex flex-col md:flex-row items-center gap-4 md:gap-6 py-4 md:py-0 md:h-20 z-[100]">
-        {/* Logo and Mobile Header Row */}
-        <div className="flex items-center justify-between w-full md:w-auto gap-3 flex-shrink-0">
+      <header className="absolute top-4 left-4 right-4 md:top-6 md:left-6 md:right-6 bg-white/90 backdrop-blur-md rounded-[20px] border border-white/50 shadow-lg px-4 md:px-7 flex flex-col lg:flex-row items-center gap-4 lg:gap-6 py-4 lg:py-0 lg:h-20 z-[100]">
+        {/* Logo and Mobile/Tablet Header Row */}
+        <div className="flex items-center justify-between w-full lg:w-auto gap-3 flex-shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 md:w-11 md:h-11 bg-gradient-to-br from-[#3B82F6] to-[#2563EB] rounded-xl flex items-center justify-center text-xl md:text-2xl shadow-blue-500/30 shadow-lg">🗺️</div>
             <div>
               <div className="gradient-text text-lg md:text-xl font-black leading-tight tracking-tight">
                 {T.title}
               </div>
-              <div className="text-[9px] md:text-[10px] color-[#64748b] tracking-widest font-bold uppercase">
+              <div className="text-[9px] md:text-[10px] text-[#64748b] tracking-widest font-bold uppercase">
                 {T.subtitle}
               </div>
             </div>
           </div>
           
-          {/* Mobile Language Toggle */}
-          <div className="flex md:hidden bg-[#f1f5f9] p-1 rounded-xl gap-0.5">
+          {/* Mobile/Tablet Language Toggle */}
+          <div className="flex lg:hidden bg-[#f1f5f9] p-1 rounded-xl gap-0.5">
             {['TH','EN'].map(l => (
               <button
                 key={l}
@@ -176,12 +176,12 @@ export default function Home() {
         </div>
 
         {/* Search */}
-        <div className="w-full md:flex-1 md:max-w-[450px]">
+        <div className="w-full lg:flex-1 lg:max-w-[450px]">
           <SearchBar onSelect={handleProvinceSelect} selectedProvince={selectedProvince} lang={lang} />
         </div>
 
-        {/* Desktop Controls (Hidden on Mobile) */}
-        <div className="hidden md:flex items-center gap-6 flex-shrink-0">
+        {/* Desktop Controls (Hidden on Mobile/Tablet) */}
+        <div className="hidden lg:flex items-center gap-6 flex-shrink-0">
           {/* Date picker */}
           <div className="w-[220px]">
             <DatePicker value={selectedDate} onChange={setSelectedDate} lang={lang} />
@@ -214,8 +214,8 @@ export default function Home() {
           </div>
         </div>
         
-        {/* Mobile Date Row (Visible only on Mobile) */}
-        <div className="flex md:hidden w-full items-center gap-3">
+        {/* Mobile/Tablet Date Row (Visible only on Mobile/Tablet) */}
+        <div className="flex lg:hidden w-full items-center gap-3">
            <div className="flex-1">
              <DatePicker value={selectedDate} onChange={setSelectedDate} lang={lang} />
            </div>

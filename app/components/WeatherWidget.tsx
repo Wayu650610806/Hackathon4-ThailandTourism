@@ -17,39 +17,45 @@ const C = {
 
 function SunIcon() {
   return (
-    <svg viewBox="0 0 60 60" style={{ width:52, height:52 }}>
-      {[0,45,90,135,180,225,270,315].map((a, i) => (
-        <line key={i} x1="30" y1="7" x2="30" y2="14"
-          stroke="#FBBF24" strokeWidth="2.5" strokeLinecap="round"
-          transform={`rotate(${a} 30 30)`}
-          style={{ animation:`sunRay ${1.4+i*0.18}s ease-in-out infinite`, transformOrigin:'30px 30px' }}
-        />
-      ))}
-      <circle cx="30" cy="30" r="10" fill="#FBBF24" />
-      <circle cx="30" cy="30" r="7"  fill="#FDE68A" />
-    </svg>
+    <div className="relative w-[60px] h-[60px] flex items-center justify-center">
+      <svg viewBox="0 0 60 60" className="w-full h-full animate-sun-spin">
+        {[0, 45, 90, 135, 180, 225, 270, 315].map((a, i) => (
+          <line key={i} x1="30" y1="5" x2="30" y2="15"
+            stroke="#FBBF24" strokeWidth="3" strokeLinecap="round"
+            transform={`rotate(${a} 30 30)`}
+          />
+        ))}
+        <circle cx="30" cy="30" r="12" fill="#FBBF24" />
+        <circle cx="30" cy="30" r="8"  fill="#FDE68A" />
+      </svg>
+    </div>
   );
 }
 
 function HotIcon() {
   return (
-    <svg viewBox="0 0 60 60" style={{ width:52, height:52 }}>
-      {[0,45,90,135,180,225,270,315].map((a, i) => (
-        <line key={i} x1="30" y1="5" x2="30" y2="13"
-          stroke="#EF4444" strokeWidth="2.5" strokeLinecap="round"
-          transform={`rotate(${a} 30 30)`}
-          style={{ animation:`sunRay ${1.1+i*0.14}s ease-in-out infinite`, transformOrigin:'30px 30px' }}
-        />
-      ))}
-      <circle cx="30" cy="30" r="11" fill="#EF4444" />
-      <circle cx="30" cy="30" r="7"  fill="#FCA5A5" />
-      {[0,1,2].map(i => (
-        <path key={i} d={`M ${16+i*9} 47 Q ${20+i*9} 43 ${24+i*9} 47`}
-          fill="none" stroke="#F97316" strokeWidth="2" strokeLinecap="round"
-          style={{ animation:`sunRay ${0.9+i*0.3}s ease-in-out infinite` }}
-        />
-      ))}
-    </svg>
+    <div className="relative w-[60px] h-[60px] flex items-center justify-center">
+      {/* Sun base */}
+      <svg viewBox="0 0 60 60" className="absolute inset-0 w-full h-full animate-sun-spin opacity-40">
+        {[0, 45, 90, 135, 180, 225, 270, 315].map((a, i) => (
+          <line key={i} x1="30" y1="5" x2="30" y2="15"
+            stroke="#EF4444" strokeWidth="3" strokeLinecap="round"
+            transform={`rotate(${a} 30 30)`}
+          />
+        ))}
+        <circle cx="30" cy="30" r="12" fill="#EF4444" />
+      </svg>
+      {/* Heat Waves */}
+      <div className="flex gap-2.5 mt-4">
+        {[0, 1, 2].map(i => (
+          <svg key={i} viewBox="0 0 10 30" className="w-2.5 h-8 animate-heat-wave" style={{ animationDelay: `${i * 0.4}s` }}>
+            <path d="M5 30 Q0 22 5 15 Q10 8 5 0" fill="none" stroke="#EF4444" strokeWidth="2.5" strokeLinecap="round" />
+          </svg>
+        ))}
+      </div>
+      {/* Warning color circle */}
+      <div className="absolute top-1 right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse shadow-[0_0_8px_#EF4444]" />
+    </div>
   );
 }
 
@@ -57,8 +63,8 @@ function CloudIcon({ rainy = false, stormy = false }: { rainy?: boolean; stormy?
   const cloudFill = stormy ? '#94A3B8' : '#CBD5E1';
   const cloudBase = stormy ? '#64748B' : '#E2E8F0';
   return (
-    <svg viewBox="0 0 70 65" style={{ width:60, height:55 }}>
-      <g style={{ animation:'cloudFloat 4s ease-in-out infinite' }}>
+    <svg viewBox="0 0 70 65" className="w-[60px] h-[55px]">
+      <g className="animate-cloud">
         <ellipse cx="35" cy="24" rx="20" ry="12" fill={cloudFill} />
         <ellipse cx="21" cy="29" rx="11" ry="9"  fill={cloudBase} />
         <ellipse cx="49" cy="29" rx="10" ry="8"  fill={cloudBase} />
@@ -91,16 +97,35 @@ function CloudIcon({ rainy = false, stormy = false }: { rainy?: boolean; stormy?
 
 function CoolIcon() {
   return (
-    <svg viewBox="0 0 60 60" style={{ width:52, height:52 }}>
-      {[0,30,60,90,120,150].map((a, i) => (
-        <g key={i} transform={`rotate(${a} 30 30)`}>
-          <line x1="30" y1="9"  x2="30" y2="51" stroke="#93C5FD" strokeWidth="2.5" strokeLinecap="round" />
-          <line x1="22" y1="17" x2="38" y2="17" stroke="#93C5FD" strokeWidth="1.8" strokeLinecap="round" />
-          <line x1="22" y1="43" x2="38" y2="43" stroke="#93C5FD" strokeWidth="1.8" strokeLinecap="round" />
-        </g>
+    <div className="relative w-[60px] h-[60px] flex items-center justify-center">
+      {/* Wind lines */}
+      <div className="absolute inset-0 flex flex-col justify-center gap-3 overflow-hidden">
+        {[0, 1].map(i => (
+          <div key={i} className="animate-wind" style={{ animationDelay: `${i * 1.5}s` }}>
+            <svg viewBox="0 0 40 10" className="w-10 h-2 opacity-60">
+              <path d="M0 5 Q10 0 20 5 Q30 10 40 5" fill="none" stroke="#93C5FD" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          </div>
+        ))}
+      </div>
+      {/* Snowflakes */}
+      {[0, 1, 2].map(i => (
+        <div key={i} className="absolute animate-snow" style={{ 
+          left: `${15 + i * 15}px`, 
+          top: '-5px',
+          animationDelay: `${i * 0.8}s` 
+        }}>
+          <svg viewBox="0 0 24 24" className="w-4 h-4 text-blue-300">
+            <path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2h6zm1 12l-2-2 2-2 2 2-2 2zm-12-12l2-2 2 2-2 2-2-2zm24 0l-2-2-2 2 2 2 2-2zM12 1l2 2-2 2-2-2 2-2z" />
+          </svg>
+        </div>
       ))}
-      <circle cx="30" cy="30" r="5" fill="#BFDBFE" />
-    </svg>
+      {/* Core cool shape */}
+      <svg viewBox="0 0 40 40" className="w-8 h-8 opacity-80 z-10">
+        <circle cx="20" cy="20" r="12" fill="none" stroke="#60A5FA" strokeWidth="2" strokeDasharray="4 4" className="animate-spin-slow" />
+        <path d="M20 10 L20 30 M10 20 L30 20" stroke="#60A5FA" strokeWidth="3" strokeLinecap="round" />
+      </svg>
+    </div>
   );
 }
 

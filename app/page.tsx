@@ -29,9 +29,10 @@ const THA_REG_MAP: Record<string, string> = {
 };
 
 export default function Home() {
-  const todayIso = new Date().toISOString().split('T')[0];
-  const [selectedDate, setSelectedDate] = useState(todayIso);
+  const now = new Date();
+  const [selectedPeriod, setSelectedPeriod] = useState({ month: now.getMonth() + 1, year: now.getFullYear() });
   const [selectedProvince, setSelectedProvince] = useState<string | null>(null);
+  const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
   const [provinceData, setProvinceData] = useState<Province | null>(null);
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [weatherLoading, setWeatherLoading] = useState(false);
@@ -43,14 +44,62 @@ export default function Home() {
     import('@/data/provinces.json').then(mod => setProvinces(mod.default as Province[]));
   }, []);
 
-  const fetchWeather = useCallback(async (provinceName: string, date: string, region: string) => {
+  const fetchWeather = useCallback(async (provinceName: string, period: { month: number; year: number }, region: string) => {
     setWeatherLoading(true);
+    const info = ALL_77_PROVINCES.find(p => p.name === provinceName);
+    const provinceEn = info?.name_en || provinceName;
+    
     try {
-      const res = await fetch(
-        `/api/weather?location=${encodeURIComponent(provinceName)}&date=${date}&region=${encodeURIComponent(region)}`
-      );
-      setWeatherData(await res.json());
-    } catch {
+      // 1. Fetch Traveler Prediction
+      const travelerRes = await fetch(`/api/proxy?url=/tourist-forecast/${period.year}/${period.month}/${encodeURIComponent(provinceEn)}`);
+      const travelerData = await travelerRes.json();
+
+      // 2. Fetch Weather Forecast
+      const weatherRes = await fetch(`/api/proxy?url=/forecast/${period.year}/${period.month}/${encodeURIComponent(provinceEn)}`);
+      const weatherDataResp = await weatherRes.json();
+
+      // 3. Construct Unified State (Merging API data with current UI expectations)
+      setWeatherData({
+        location: provinceName,
+        date: `${period.year}-${String(period.month).padStart(2, '0')}-01`,
+        weather: {
+          condition: weatherDataResp.mode === 'rain' ? 'stormy' : 
+                     weatherDataResp.mode === 'cold' ? 'cool' : 
+                     weatherDataResp.mode === 'hot' ? 'hot' : 'sunny',
+          temperature: Math.round((weatherDataResp.temp_max_avg_c + weatherDataResp.temp_min_avg_c) / 2),
+          description: weatherDataResp.mode === 'cold' ? 'อากาศเย็นสบาย' : 
+                       weatherDataResp.mode === 'rain' ? 'ฝนฟ้าคะนอง' : 
+                       weatherDataResp.mode === 'hot' ? 'อากาศร้อนจัด' : 'ท้องฟ้าแจ่มใส',
+          description_en: weatherDataResp.mode === 'cold' ? 'Cool and pleasant' : 
+                          weatherDataResp.mode === 'rain' ? 'Thunderstorms' : 
+                          weatherDataResp.mode === 'hot' ? 'Very hot' : 'Clear skies',
+        },
+        crowd: {
+          level: (travelerData.level === 'max' || travelerData.level === 'high') ? 'high' : 
+                 travelerData.level === 'medium' ? 'medium' : 'low',
+          description: travelerData.level === 'max' ? 'นักท่องเที่ยวหนาแน่นมาก' : 
+                       travelerData.level === 'high' ? 'นักท่องเที่ยวหนาแน่น' : 
+                       travelerData.level === 'medium' ? 'นักท่องเที่ยวปานกลาง' : 'นักท่องเที่ยวน้อย',
+          description_en: travelerData.level === 'max' ? 'Peak visitor levels' : 
+                          travelerData.level === 'high' ? 'High crowds' : 
+                          travelerData.level === 'medium' ? 'Moderate crowds' : 'Low crowds',
+        },
+        forecast: {
+          temp_max_avg_c: weatherDataResp.temp_max_avg_c,
+          temp_min_avg_c: weatherDataResp.temp_min_avg_c,
+          precipitation_total_mm: weatherDataResp.precipitation_total_mm,
+          rainy_days: weatherDataResp.rainy_days,
+          mode: weatherDataResp.mode,
+        },
+        travelers: {
+          total_visitors: travelerData.total_visitors,
+          thai_visitors: travelerData.thai_visitors,
+          foreign_visitors: travelerData.foreign_visitors,
+          level: travelerData.level,
+        }
+      });
+    } catch (err) {
+      console.error("API Error:", err);
       setWeatherData(null);
     } finally {
       setWeatherLoading(false);
@@ -76,8 +125,8 @@ export default function Home() {
       description: placeholderDesc,
       attractions: [],
     });
-    fetchWeather(provinceName, selectedDate, region);
-  }, [provinces, selectedDate, fetchWeather, lang]);
+    fetchWeather(provinceName, selectedPeriod, region);
+  }, [provinces, selectedPeriod, fetchWeather, lang]);
 
   // Update description when language toggles for placeholder data
   useEffect(() => {
@@ -97,9 +146,9 @@ export default function Home() {
   useEffect(() => {
     if (selectedProvince) {
       const region = ALL_77_PROVINCES.find(p => p.name === selectedProvince)?.region || 'ภาคกลาง';
-      fetchWeather(selectedProvince, selectedDate, region);
+      fetchWeather(selectedProvince, selectedPeriod, region);
     }
-  }, [selectedDate, selectedProvince, fetchWeather]);
+  }, [selectedPeriod, selectedProvince, fetchWeather]);
 
   function handleClose() {
     setSidebarVisible(false);
@@ -116,24 +165,26 @@ export default function Home() {
 
   const T = {
     TH: {
-      title: 'Thailand Tourism',
+      title: 'TourCast TH',
       subtitle: 'พยากรณ์อากาศท่องเที่ยว 77 จังหวัด',
       regions: 'สำรวจภูมิภาค',
       provinces: 'จังหวัด',
       forecast: 'พยากรณ์',
       tip: '💡 เคล็ดลับ: คลิกจังหวัดบนแผนที่เพื่อดูสถานที่ท่องเที่ยวและพยากรณ์อากาศ AI',
       connected: 'เชื่อมต่อระบบ AI แล้ว',
-      madeFor: 'สำหรับ Thailand Hackathon 4'
+      madeFor: 'Super AI Engineer Season 6 Hackathon 4',
+      projectName: 'Project: NeW ReaSoN'
     },
     EN: {
-      title: 'Thailand Tourism',
+      title: 'TourCast TH',
       subtitle: 'AI Weather Forecast · 77 Provinces',
       regions: 'Region Explorer',
       provinces: 'Provinces',
       forecast: 'Forecast',
       tip: '💡 Smart Tip: Click any province on the map to see local attractions & AI weather forecast.',
       connected: 'AI Cloud Engine Connected',
-      madeFor: 'Made for Thailand Hackathon 4'
+      madeFor: 'Super AI Engineer Season 6 Hackathon 4',
+      projectName: 'Project: NeW ReaSoN'
     }
   }[lang];
 
@@ -142,7 +193,7 @@ export default function Home() {
 
       {/* ── Background Fullscreen Map ── */}
       <div className="absolute inset-0 z-0">
-        <ThailandMap onProvinceSelect={handleProvinceSelect} selectedProvince={selectedProvince} lang={lang} />
+        <ThailandMap onProvinceSelect={handleProvinceSelect} selectedProvince={selectedProvince} lang={lang} selectedRegion={selectedRegion} />
       </div>
 
       {/* ── Floating Header Card ── */}
@@ -184,7 +235,7 @@ export default function Home() {
         <div className="hidden lg:flex items-center gap-6 flex-shrink-0">
           {/* Date picker */}
           <div className="w-[220px]">
-            <DatePicker value={selectedDate} onChange={setSelectedDate} lang={lang} />
+            <DatePicker value={selectedPeriod} onChange={setSelectedPeriod} lang={lang} />
           </div>
 
           {/* Language Toggle */}
@@ -217,7 +268,7 @@ export default function Home() {
         {/* Mobile/Tablet Date Row (Visible only on Mobile/Tablet) */}
         <div className="flex lg:hidden w-full items-center gap-3">
            <div className="flex-1">
-             <DatePicker value={selectedDate} onChange={setSelectedDate} lang={lang} />
+             <DatePicker value={selectedPeriod} onChange={setSelectedPeriod} lang={lang} />
            </div>
         </div>
       </header>
@@ -229,9 +280,15 @@ export default function Home() {
         </div>
 
         {regionStats.map(({ region, color, count, name_en }) => (
-          <div key={region} className="flex items-center gap-[10px] p-[10px_14px] bg-white rounded-2xl border-[1.5px] border-[#f1f5f9] shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-all cursor-default">
+          <div
+            key={region}
+            onClick={() => setSelectedRegion(selectedRegion === region ? null : region)}
+            className={`flex items-center gap-[10px] p-[10px_14px] bg-white rounded-2xl border-[1.5px] shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-all cursor-pointer ${
+              selectedRegion === region ? 'border-[#7c3aed] bg-[#f5f3ff] scale-[1.02]' : 'border-[#f1f5f9] hover:bg-slate-50'
+            }`}
+          >
             <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ background: color, boxShadow: `0 0 8px ${color}40` }} />
-            <div className="flex-1 min-w-0 text-[13px] text-[#1e293b] font-bold leading-[1.3]">
+            <div className={`flex-1 min-w-0 text-[13px] font-bold leading-[1.3] ${selectedRegion === region ? 'text-[#7c3aed]' : 'text-[#1e293b]'}`}>
               {lang === 'TH' ? region.replace('ภาค','') : name_en}
             </div>
             <div className="text-[11px] font-extrabold px-2 py-0.5 rounded-[10px]" style={{ color, background: `${color}15` }}>
@@ -285,8 +342,13 @@ export default function Home() {
         </div>
         <span>{lang === 'TH' ? `ข้อมูล: ${provinces.length} / 77 จังหวัด` : `Data: ${provinces.length} / 77 Provinces`}</span>
         <span className="ml-auto">
-          {new Date(selectedDate + 'T00:00:00').toLocaleDateString(lang === 'TH' ? 'th-TH' : 'en-US', { day:'numeric', month:'long', year: lang === 'TH' ? 'numeric' : 'numeric' })}
+          {lang === 'TH' 
+            ? `${['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'][selectedPeriod.month-1]} ${selectedPeriod.year + 543}`
+            : `${['January','February','March','April','May','June','July','August','September','October','November','December'][selectedPeriod.month-1]} ${selectedPeriod.year}`
+          }
         </span>
+        <span className="opacity-50">|</span>
+        <span className="font-bold">{T.projectName}</span>
         <span className="opacity-50">|</span>
         <span>{T.madeFor}</span>
       </div>

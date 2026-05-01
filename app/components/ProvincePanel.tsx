@@ -2,6 +2,7 @@
 
 import { Province, Attraction, WeatherData } from '@/app/types';
 import WeatherWidget from './WeatherWidget';
+import TravelerWidget from './TravelerWidget';
 import { useState } from 'react';
 
 const C = {
@@ -37,6 +38,7 @@ const REGION_COLORS: Record<string, string> = {
 function AttractionCard({ attraction, lang }: { attraction: Attraction; lang: 'TH' | 'EN' }) {
   const style = CATEGORY_STYLES[attraction.category] || CATEGORY_STYLES.Culture;
   const [imgError, setImgError] = useState(false);
+  const noImage = !attraction.image_path || imgError;
 
   return (
     <div
@@ -57,7 +59,7 @@ function AttractionCard({ attraction, lang }: { attraction: Attraction; lang: 'T
         display: 'flex', alignItems:'center', justifyContent:'center',
         overflow: 'hidden',
       }}>
-        {!imgError ? (
+        {!noImage ? (
           <img
             src={attraction.image_path}
             alt={attraction.name}
@@ -65,7 +67,12 @@ function AttractionCard({ attraction, lang }: { attraction: Attraction; lang: 'T
             onError={() => setImgError(true)}
           />
         ) : (
-          <div style={{ fontSize:40, opacity:0.5 }}>{style.icon}</div>
+          <div style={{ textAlign: 'center' }}>
+             <div style={{ fontSize:32, opacity:0.5, marginBottom: 4 }}>{style.icon}</div>
+             <div style={{ fontSize:10, fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase' }}>
+               {lang === 'TH' ? 'เร็วๆ นี้' : 'Coming Soon'}
+             </div>
+          </div>
         )}
         <div style={{
           position:'absolute', top:8, left:8,
@@ -84,11 +91,13 @@ function AttractionCard({ attraction, lang }: { attraction: Attraction; lang: 'T
         <div style={{ fontSize:14, fontWeight:800, color: C.p900, marginBottom:4, lineHeight:1.3 }}>
           {attraction.name}
         </div>
-        <div style={{ fontSize:11, color: C.sub, marginBottom:3, fontWeight: 600 }}>
-          📍 {attraction.district}
-        </div>
+        {attraction.district && (
+          <div style={{ fontSize:11, color: C.sub, marginBottom:3, fontWeight: 600 }}>
+            📍 {attraction.district}
+          </div>
+        )}
         <div style={{ fontSize:11, color: C.p600, fontWeight:700 }}>
-          🕐 {attraction.event_date}
+          🕐 {attraction.event_date || (attraction.open_time ? `${attraction.open_time} - ${attraction.close_time}` : (lang === 'TH' ? 'เปิดบริการปกติ' : 'Open daily'))}
         </div>
       </div>
     </div>
@@ -193,6 +202,9 @@ export default function ProvincePanel({ province, weatherData, weatherLoading, o
             {T.weather}
           </div>
           <WeatherWidget data={weatherData} loading={weatherLoading} lang={lang} />
+          {weatherData?.travelers && (
+            <TravelerWidget data={weatherData.travelers} crowd={weatherData.crowd} lang={lang} />
+          )}
         </div>
 
         {/* Attractions */}

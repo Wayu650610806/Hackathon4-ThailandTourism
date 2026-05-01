@@ -64,6 +64,7 @@ const EN_TO_TH: Record<string, string> = {
   'Phetchaburi': 'เพชรบุรี',
   'Phichit': 'พิจิตร',
   'Phitsanulok': 'พิษณุโลก',
+  'Phrae': 'แพร่',
   'Phra Nakhon Si Ayutthaya': 'พระนครศรีอยุธยา',
   'Ayutthaya': 'พระนครศรีอยุธยา',
   'Phuket': 'ภูเก็ต',
@@ -144,16 +145,19 @@ interface Props {
   onProvinceSelect: (province: string) => void;
   selectedProvince: string | null;
   lang: 'TH' | 'EN';
+  selectedRegion: string | null;
 }
 
 // Memoised so parent re-renders don't rebuild the whole map
 const GeoLayer = memo(function GeoLayer({
   selectedProvince,
+  selectedRegion,
   onEnter,
   onLeave,
   onSelect,
 }: {
   selectedProvince: string | null;
+  selectedRegion: string | null;
   onEnter: (name: string, region: string) => void;
   onLeave: () => void;
   onSelect: (name: string) => void;
@@ -166,9 +170,17 @@ const GeoLayer = memo(function GeoLayer({
           const info = ALL_77_PROVINCES.find((p) => p.name === thaiName);
           const region = info?.region || '';
           const isSelected = selectedProvince === thaiName;
+          const isRegionSelected = selectedRegion === region;
+          const hasRegionFilter = selectedRegion !== null;
 
           const baseFill = REGION_FILLS[region] || '#8B5CF6';
-          const defaultFill = isSelected ? '#5B21B6' : baseFill;
+          let defaultFill = isSelected ? '#5B21B6' : baseFill;
+          
+          // Apply region filter effects
+          let opacity = 1;
+          if (hasRegionFilter && !isRegionSelected) {
+            opacity = 0.15;
+          }
 
           return (
             <Geography
@@ -181,7 +193,8 @@ const GeoLayer = memo(function GeoLayer({
                   strokeWidth: isSelected ? 1.5 : 0.4,
                   outline: 'none',
                   transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  filter: 'drop-shadow(0px 3px 4px rgba(0,0,0,0.15))',
+                  filter: hasRegionFilter && !isRegionSelected ? 'none' : 'drop-shadow(0px 3px 4px rgba(0,0,0,0.15))',
+                  opacity,
                 },
                 hover: {
                   fill: '#7C3AED',
@@ -192,6 +205,7 @@ const GeoLayer = memo(function GeoLayer({
                   filter: 'drop-shadow(0px 4px 8px rgba(124,58,237,0.3))',
                   transition: 'all 0.2s ease',
                   zIndex: 10,
+                  opacity: 1,
                 },
                 pressed: {
                   fill: '#4C1D95',
@@ -211,7 +225,7 @@ const GeoLayer = memo(function GeoLayer({
   );
 });
 
-export default function ThailandMap({ onProvinceSelect, selectedProvince, lang }: Props) {
+export default function ThailandMap({ onProvinceSelect, selectedProvince, lang, selectedRegion }: Props) {
   const [hoverInfo, setHoverInfo] = useState<{ name: string; name_en: string; region: string; region_en: string } | null>(null);
 
   const handleEnter = useCallback((name: string, region: string) => {
@@ -275,6 +289,7 @@ export default function ThailandMap({ onProvinceSelect, selectedProvince, lang }
           >
             <GeoLayer
               selectedProvince={selectedProvince}
+              selectedRegion={selectedRegion}
               onEnter={handleEnter}
               onLeave={handleLeave}
               onSelect={handleSelect}

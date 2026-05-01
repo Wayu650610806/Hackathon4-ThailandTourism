@@ -2,12 +2,14 @@ export interface Attraction {
   id: string;
   name: string;
   category: 'Culture' | 'Food' | 'Temple' | 'Adventure' | 'Must Go';
-  district: string;
-  tambon: string;
+  district?: string;
+  tambon?: string;
   lat: number;
   long: number;
-  image_path: string;
-  event_date: string;
+  image_path?: string;
+  event_date?: string;
+  open_time?: string;
+  close_time?: string;
   description?: string;
 }
 
@@ -23,6 +25,23 @@ export interface Province {
 
 export type WeatherCondition = 'sunny' | 'cloudy' | 'rainy' | 'stormy' | 'hot' | 'cool';
 export type CrowdLevel = 'low' | 'medium' | 'high';
+export type WeatherForecastMode = 'normal' | 'rain' | 'cold' | 'hot';
+export type TravelerLevel = 'low' | 'medium' | 'high' | 'max';
+
+export interface WeatherForecast {
+  temp_max_avg_c: number;
+  temp_min_avg_c: number;
+  precipitation_total_mm: number;
+  rainy_days: number;
+  mode: WeatherForecastMode;
+}
+
+export interface TravelerPrediction {
+  total_visitors: number;
+  thai_visitors: number;
+  foreign_visitors: number;
+  level: TravelerLevel;
+}
 
 export interface WeatherData {
   location: string;
@@ -30,16 +49,16 @@ export interface WeatherData {
   weather: {
     condition: WeatherCondition;
     temperature: number;
-    humidity: number;
     description: string;
     description_en: string;
   };
   crowd: {
     level: CrowdLevel;
-    score: number;
     description: string;
     description_en: string;
   };
+  forecast?: WeatherForecast;
+  travelers?: TravelerPrediction;
 }
 
 export interface ThaiRegion {

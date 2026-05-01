@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 
 type WeatherCondition = 'sunny' | 'cloudy' | 'rainy' | 'stormy' | 'hot' | 'cool';
 type CrowdLevel = 'low' | 'medium' | 'high';
+type WeatherForecastMode = 'normal' | 'rain' | 'cold' | 'hot';
+type TravelerLevel = 'low' | 'medium' | 'high' | 'max';
 
 interface WeatherResponse {
   location: string;
@@ -18,6 +20,19 @@ interface WeatherResponse {
     score: number;
     description: string;
     description_en: string;
+  };
+  forecast?: {
+    temp_max_avg_c: number;
+    temp_min_avg_c: number;
+    precipitation_total_mm: number;
+    rainy_days: number;
+    mode: WeatherForecastMode;
+  };
+  travelers?: {
+    total_visitors: number;
+    thai_visitors: number;
+    foreign_visitors: number;
+    level: TravelerLevel;
   };
 }
 
@@ -78,33 +93,70 @@ function generateMockData(location: string, date: string, region: string): Weath
     70 + crowdSeed * 30
   );
 
+  // New Forecast Data
+  const avgMax = temp + 2;
+  const avgMin = temp - 4;
+  const precip = Math.round(seededRandom(seed + 4) * 200);
+  const rainyDays = Math.round(seededRandom(seed + 5) * 20);
+  const forecastMode: WeatherForecastMode = 
+    month >= 3 && month <= 5 ? 'hot' :
+    month >= 6 && month <= 10 ? 'rain' :
+    month >= 11 || month <= 2 ? 'cold' : 'normal';
+
+  // New Traveler Data
+  const baseVisitors = isPeakSeason ? 50000 : 20000;
+  const totalVisitors = Math.round(baseVisitors + seededRandom(seed + 6) * 30000);
+  const foreignRatio = isPeakSeason ? 0.4 + seededRandom(seed + 7) * 0.3 : 0.1 + seededRandom(seed + 7) * 0.2;
+  const foreignVisitors = Math.round(totalVisitors * foreignRatio);
+  const thaiVisitors = totalVisitors - foreignVisitors;
+  
+  let travelerLevel: TravelerLevel = 'low';
+  if (totalVisitors > 70000) travelerLevel = 'max';
+  else if (totalVisitors > 50000) travelerLevel = 'high';
+  else if (totalVisitors > 30000) travelerLevel = 'medium';
+
   return {
     location,
     date,
     weather: {
-      condition,
+      condition: forecastMode === 'rain' ? 'stormy' : 
+                 forecastMode === 'cold' ? 'cool' : 
+                 forecastMode === 'hot' ? 'hot' : 'sunny',
       temperature: temp,
-      humidity,
       description: weatherDescriptions[condition].th,
       description_en: weatherDescriptions[condition].en,
     },
     crowd: {
       level: crowdLevel,
-      score: crowdScore,
       description: crowdDescriptions[crowdLevel].th,
       description_en: crowdDescriptions[crowdLevel].en,
     },
+    forecast: {
+      temp_max_avg_c: avgMax,
+      temp_min_avg_c: avgMin,
+      precipitation_total_mm: precip,
+      rainy_days: rainyDays,
+      mode: forecastMode,
+    },
+    travelers: {
+      total_visitors: totalVisitors,
+      thai_visitors: thaiVisitors,
+      foreign_visitors: foreignVisitors,
+      level: travelerLevel,
+    }
   };
 }
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const location = searchParams.get('location') || 'Unknown';
-  const date = searchParams.get('date') || new Date().toISOString().split('T')[0];
+  const year = parseInt(searchParams.get('year') || '2026');
+  const month = parseInt(searchParams.get('month') || '1');
   const region = searchParams.get('region') || 'ภาคกลาง';
 
   await new Promise(resolve => setTimeout(resolve, 300));
 
-  const data = generateMockData(location, date, region);
+  const dummyDate = `${year}-${String(month).padStart(2, '0')}-01`;
+  const data = generateMockData(location, dummyDate, region);
   return NextResponse.json(data);
 }

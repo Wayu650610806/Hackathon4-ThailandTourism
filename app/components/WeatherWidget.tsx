@@ -122,50 +122,6 @@ function WeatherIcon({ condition }: { condition: WeatherCondition }) {
   }
 }
 
-function CrowdBar({ level, score, lang }: { level: CrowdLevel; score: number; lang: 'TH' | 'EN' }) {
-  const colors: Record<CrowdLevel, string> = {
-    low:    '#22C55E',
-    medium: '#F59E0B',
-    high:   '#EF4444',
-  };
-  const labels: Record<string, Record<CrowdLevel, string>> = {
-    TH: { low: 'น้อย', medium: 'ปานกลาง', high: 'หนาแน่น' },
-    EN: { low: 'Low', medium: 'Medium', high: 'High' }
-  };
-  
-  const titleLabels = {
-    TH: 'ความหนาแน่นนักท่องเที่ยว',
-    EN: 'Tourist Crowd Density'
-  };
-
-  const color = colors[level];
-  const peopleFilled = level === 'low' ? 1 : level === 'medium' ? 3 : 5;
-
-  return (
-    <div style={{ marginTop:8 }}>
-      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:6 }}>
-        <span style={{ fontSize:12, color: '#64748b', fontWeight: 600 }}>{titleLabels[lang]}</span>
-        <span style={{ fontSize:12, fontWeight:800, color }}>{labels[lang][level]} ({score}%)</span>
-      </div>
-      <div style={{ height:8, background: '#f1f5f9', borderRadius:4, overflow:'hidden' }}>
-        <div style={{
-          height:'100%', width:`${score}%`,
-          background: `linear-gradient(90deg,${color}88,${color})`,
-          borderRadius:4, transition:'width 1s ease',
-        }} />
-      </div>
-      <div style={{ display:'flex', gap:4, marginTop:10 }}>
-        {Array.from({ length:5 }).map((_, i) => (
-          <svg key={i} viewBox="0 0 20 30" style={{ width:14, height:21 }}>
-            <circle cx="10" cy="6" r="5" fill={i < peopleFilled ? color : '#e2e8f0'} />
-            <path d="M4 30 Q4 16 10 16 Q16 16 16 30" fill={i < peopleFilled ? color : '#e2e8f0'} />
-          </svg>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 const WEATHER_BG: Record<WeatherCondition, string> = {
   sunny:  'linear-gradient(135deg,rgba(251,191,36,0.12),rgba(245,158,11,0.04))',
   hot:    'linear-gradient(135deg,rgba(239,68,68,0.10),rgba(249,115,22,0.04))',
@@ -205,7 +161,6 @@ export default function WeatherWidget({ data, loading, lang }: Props) {
   }
 
   const bg = WEATHER_BG[data.weather.condition] || WEATHER_BG.sunny;
-  const humidityLabel = lang === 'TH' ? 'ความชื้น' : 'Humidity';
 
   return (
     <div style={{
@@ -221,11 +176,13 @@ export default function WeatherWidget({ data, loading, lang }: Props) {
           <div style={{ fontSize:10, color: '#94a3b8', textTransform:'uppercase', letterSpacing:'0.08em', fontWeight: 800 }}>
             AI {lang === 'TH' ? 'พยากรณ์อากาศ' : 'Weather Forecast'}
           </div>
-          <div style={{ fontSize:12, color: '#64748b', marginTop:2, fontWeight: 600 }}>
-            {new Date(data.date).toLocaleDateString(lang === 'TH' ? 'th-TH' : 'en-US', { day:'numeric', month:'long', year:'numeric' })}
-          </div>
         </div>
-        <WeatherIcon condition={data.weather.condition} />
+        <WeatherIcon condition={
+          data.forecast?.mode === 'rain' ? 'stormy' :
+          data.forecast?.mode === 'cold' ? 'cool' :
+          data.forecast?.mode === 'hot' ? 'hot' :
+          data.weather.condition
+        } />
       </div>
 
       {/* Temperature */}
@@ -236,20 +193,44 @@ export default function WeatherWidget({ data, loading, lang }: Props) {
         <span style={{ fontSize:24, color: '#64748b', marginBottom:6, fontWeight: 700 }}>°C</span>
       </div>
 
-      <div style={{ fontSize:15, color: '#1e293b', marginBottom:4, fontWeight:700 }}>
+      <div style={{ fontSize:15, color: '#1e293b', marginBottom:18, fontWeight:700 }}>
         {lang === 'TH' ? data.weather.description : data.weather.description_en}
       </div>
-      <div style={{ fontSize:13, color: '#64748b', marginBottom:18, fontWeight: 500 }}>
-        {humidityLabel}: {data.weather.humidity}%
-      </div>
 
-      <div style={{ height:1, background: '#f1f5f9', margin:'12px 0' }} />
-
-      <CrowdBar level={data.crowd.level} score={data.crowd.score} lang={lang} />
-
-      <div style={{ fontSize:13, color: '#475569', marginTop:12, fontWeight: 500, lineHeight: 1.5 }}>
-        {lang === 'TH' ? data.crowd.description : data.crowd.description_en}
-      </div>
+      {data.forecast && (
+        <div style={{ marginTop: 20 }}>
+          <div style={{ height: 1, background: '#f1f5f9', margin: '16px 0' }} />
+          <div style={{ fontSize: 10, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 800, marginBottom: 12 }}>
+            {lang === 'TH' ? 'สถิติพยากรณ์รายเดือน' : 'Monthly Forecast Statistics'}
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+            <div style={{ background: 'rgba(255,255,255,0.5)', padding: '8px', borderRadius: 12, border: '1px solid rgba(226,232,240,0.5)' }}>
+              <div style={{ fontSize: 8, color: '#64748b', fontWeight: 800, marginBottom: 2, textTransform: 'uppercase' }}>
+                 {lang === 'TH' ? 'อุณหภูมิ' : 'Avg Temp'}
+              </div>
+              <div style={{ fontSize: 11, fontWeight: 900, color: '#1e293b' }}>
+                {data.forecast.temp_min_avg_c}°-{data.forecast.temp_max_avg_c}°C
+              </div>
+            </div>
+            <div style={{ background: 'rgba(255,255,255,0.5)', padding: '8px', borderRadius: 12, border: '1px solid rgba(226,232,240,0.5)' }}>
+              <div style={{ fontSize: 8, color: '#64748b', fontWeight: 800, marginBottom: 2, textTransform: 'uppercase' }}>
+                 {lang === 'TH' ? 'ปริมาณฝน' : 'Precip'}
+              </div>
+              <div style={{ fontSize: 11, fontWeight: 900, color: '#1e293b' }}>
+                {data.forecast.precipitation_total_mm}mm
+              </div>
+            </div>
+            <div style={{ background: 'rgba(255,255,255,0.5)', padding: '8px', borderRadius: 12, border: '1px solid rgba(226,232,240,0.5)' }}>
+              <div style={{ fontSize: 8, color: '#64748b', fontWeight: 800, marginBottom: 2, textTransform: 'uppercase' }}>
+                 {lang === 'TH' ? 'ฝนตก' : 'Rainy'}
+              </div>
+              <div style={{ fontSize: 11, fontWeight: 900, color: '#1e293b' }}>
+                {data.forecast.rainy_days}{lang === 'TH' ? 'วัน' : 'd'}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

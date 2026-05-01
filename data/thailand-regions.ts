@@ -34,7 +34,7 @@ export const THAILAND_REGIONS = [
     name: 'ภาคตะวันออก',
     name_en: 'Eastern',
     color: '#059669',
-    provinces: ['ชลบุรี', 'ระยอง', 'จันทบุรี', 'ตราด', 'ปราจีนบุรี', 'สระแก้ว', 'เกาะสมุย'],
+    provinces: ['ชลบุรี', 'ระยอง', 'จันทบุรี', 'ตราด', 'ปราจีนบุรี', 'สระแก้ว'],
   },
   {
     id: 'western',
@@ -75,7 +75,7 @@ export const ALL_77_PROVINCES = [
   { name: 'เพชรบูรณ์', name_en: 'Phetchabun', region: 'ภาคเหนือ', lat: 16.420, lng: 101.158 },
   // ภาคตะวันออกเฉียงเหนือ
   { name: 'เลย', name_en: 'Loei', region: 'ภาคตะวันออกเฉียงเหนือ', lat: 17.485, lng: 101.724 },
-  { name: 'หนองบัวลำภู', name_en: 'Nong Bua Lam Phu', region: 'ภาคตะวันออกเฉียงเหนือ', lat: 17.204, lng: 102.441 },
+  { name: 'หนองบัวลำภู', name_en: 'Nong Bua Lamphu', region: 'ภาคตะวันออกเฉียงเหนือ', lat: 17.204, lng: 102.441 },
   { name: 'หนองคาย', name_en: 'Nong Khai', region: 'ภาคตะวันออกเฉียงเหนือ', lat: 17.877, lng: 102.741 },
   { name: 'อุดรธานี', name_en: 'Udon Thani', region: 'ภาคตะวันออกเฉียงเหนือ', lat: 17.415, lng: 102.787 },
   { name: 'บึงกาฬ', name_en: 'Bueng Kan', region: 'ภาคตะวันออกเฉียงเหนือ', lat: 18.361, lng: 103.647 },
@@ -97,7 +97,7 @@ export const ALL_77_PROVINCES = [
   // ภาคกลาง
   { name: 'นครสวรรค์', name_en: 'Nakhon Sawan', region: 'ภาคกลาง', lat: 15.703, lng: 100.137 },
   { name: 'อุทัยธานี', name_en: 'Uthai Thani', region: 'ภาคกลาง', lat: 15.381, lng: 100.025 },
-  { name: 'ชัยนาท', name_en: 'Chainat', region: 'ภาคกลาง', lat: 15.186, lng: 100.126 },
+  { name: 'ชัยนาท', name_en: 'Chai Nat', region: 'ภาคกลาง', lat: 15.186, lng: 100.126 },
   { name: 'สิงห์บุรี', name_en: 'Sing Buri', region: 'ภาคกลาง', lat: 14.889, lng: 100.397 },
   { name: 'อ่างทอง', name_en: 'Ang Thong', region: 'ภาคกลาง', lat: 14.589, lng: 100.455 },
   { name: 'ลพบุรี', name_en: 'Lopburi', region: 'ภาคกลาง', lat: 14.799, lng: 100.654 },
@@ -108,12 +108,12 @@ export const ALL_77_PROVINCES = [
   { name: 'นนทบุรี', name_en: 'Nonthaburi', region: 'ภาคกลาง', lat: 13.859, lng: 100.521 },
   { name: 'สมุทรปราการ', name_en: 'Samut Prakan', region: 'ภาคกลาง', lat: 13.599, lng: 100.600 },
   { name: 'ฉะเชิงเทรา', name_en: 'Chachoengsao', region: 'ภาคกลาง', lat: 13.692, lng: 101.078 },
-  { name: 'พระนครศรีอยุธยา', name_en: 'Ayutthaya', region: 'ภาคกลาง', lat: 14.357, lng: 100.587 },
+  { name: 'พระนครศรีอยุธยา', name_en: 'Phra Nakhon Si Ayutthaya', region: 'ภาคกลาง', lat: 14.357, lng: 100.587 },
   { name: 'นครปฐม', name_en: 'Nakhon Pathom', region: 'ภาคกลาง', lat: 13.819, lng: 100.064 },
   { name: 'สมุทรสาคร', name_en: 'Samut Sakhon', region: 'ภาคกลาง', lat: 13.547, lng: 100.274 },
   { name: 'สมุทรสงคราม', name_en: 'Samut Songkhram', region: 'ภาคกลาง', lat: 13.409, lng: 100.001 },
   // ภาคตะวันออก
-  { name: 'ปราจีนบุรี', name_en: 'Prachin Buri', region: 'ภาคตะวันออก', lat: 14.052, lng: 101.370 },
+  { name: 'ปราจีนบุรี', name_en: 'Prachinburi', region: 'ภาคตะวันออก', lat: 14.052, lng: 101.370 },
   { name: 'สระแก้ว', name_en: 'Sa Kaeo', region: 'ภาคตะวันออก', lat: 13.823, lng: 102.064 },
   { name: 'ชลบุรี', name_en: 'Chonburi', region: 'ภาคตะวันออก', lat: 13.361, lng: 100.985 },
   { name: 'ระยอง', name_en: 'Rayong', region: 'ภาคตะวันออก', lat: 12.683, lng: 101.282 },
